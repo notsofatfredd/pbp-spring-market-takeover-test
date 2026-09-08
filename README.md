@@ -1,5 +1,7 @@
 # Pacific Business Park website v21
 
+Future event builds must follow [NEXT-EVENT-TAKEOVER-BRIEF.md](NEXT-EVENT-TAKEOVER-BRIEF.md).
+
 This is the main Pacific Business Park website. It is separate from the marketplace project.
 
 Version 21 contains the complete 23-store identity system for the live directory:
