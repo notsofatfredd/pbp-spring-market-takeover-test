@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#050505" />
+    <meta name="color-scheme" content="light" />
+    <meta name="apple-mobile-web-app-title" content="Pacific Park" />
+    <title>Pacific Business Park | Stores, Events & Shopping in Cape Town</title>
+    <meta
+      name="description"
+      content="Pacific Business Park in Cape Town. Explore stores, events, trading hours, and visitor information."
+    />
+    <link rel="canonical" href="https://pacificbusinesspark.co.za/" />
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon/favicon-48x48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon/icon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon/icon-512x512.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Pacific Business Park" />
+    <meta property="og:title" content="Pacific Business Park | Stores, Events & Shopping in Cape Town" />
+    <meta
+      property="og:description"
+      content="Pacific Business Park in Cape Town. Explore stores, events, trading hours, and visitor information."
+    />
+    <meta property="og:image" content="https://pacificbusinesspark.co.za/images/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Pacific Business Park in Cape Town" />
+    <meta property="og:url" content="https://pacificbusinesspark.co.za/" />
+    <meta property="og:locale" content="en_ZA" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Pacific Business Park | Stores, Events & Shopping in Cape Town" />
+    <meta
+      name="twitter:description"
+      content="Pacific Business Park in Cape Town. Explore stores, events, trading hours, and visitor information."
+    />
+    <meta name="twitter:image" content="https://pacificbusinesspark.co.za/images/og-image.jpg" />
+    <meta name="twitter:image:alt" content="Pacific Business Park in Cape Town" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ShoppingCenter",
+        "name": "Pacific Business Park",
+        "url": "https://pacificbusinesspark.co.za/",
+        "image": "https://pacificbusinesspark.co.za/images/og-image.jpg",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "1E Jakes Gerwel Drive",
+          "addressLocality": "Cape Town",
+          "addressCountry": "ZA"
+        },
+        "sameAs": [
+          "https://www.instagram.com/pacific_business_park/",
+          "https://www.tiktok.com/@pacific_business_park"
+        ],
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "09:00",
+            "closes": "18:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Sunday",
+            "opens": "09:00",
+            "closes": "13:00"
+          }
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="styles.css" />
+    <script src="assets/event-config.js"></script>
+    <script src="assets/stores-data.js"></script>
+    <script src="vendor/lucide.min.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="scroll-progress" aria-hidden="true"><span id="scroll-progress-bar"></span></div>
+
+    <header class="site-header" id="site-header">
+      <a class="header-context" href="#home" aria-label="Pacific Business Park home">
+        <span>Pacific Business Park</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#today">Shops</a>
+        <a href="#events" data-event-link>What’s On</a>
+        <a href="#visit">Visit</a>
+        <button class="marketplace-link" type="button" data-marketplace>
+          <span>Marketplace</span>
+          <small>Coming soon</small>
+        </button>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-button nav-toggle" id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </header>
+
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+      <a href="#today"><span>Shops</span><i data-lucide="arrow-up-right"></i></a>
+      <a href="#events" data-event-link><span>What’s On</span><i data-lucide="arrow-up-right"></i></a>
+      <a href="#visit"><span>Visit</span><i data-lucide="arrow-up-right"></i></a>
+      <button type="button" data-marketplace><span>Marketplace</span><small>Coming soon</small></button>
+    </nav>
+
+    <div class="marketplace-notice" id="marketplace-notice" role="status" aria-live="polite" hidden>
+      Marketplace is coming soon.
+    </div>
+
+    <nav class="quick-dock" aria-label="Quick actions">
+      <a class="dock-action" href="#directory-drawer" data-open-directory aria-label="Open store directory">
+        <i data-lucide="store"></i>
+        <span>Directory</span>
+      </a>
+      <a class="dock-action" href="#events" data-event-link aria-label="View events">
+        <i data-lucide="calendar-days"></i>
+        <span>Events</span>
+      </a>
+      <a class="dock-action" href="https://www.google.com/maps/search/?api=1&query=1E+Jakes+Gerwel+Drive,+Cape+Town" target="_blank" rel="noopener noreferrer" aria-label="Open map">
+        <i data-lucide="map-pin"></i>
+        <span>Map</span>
+      </a>
+      <a class="dock-action" href="https://wa.me/27664214085" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp centre">
+        <i data-lucide="message-circle"></i>
+        <span>WhatsApp</span>
+      </a>
+    </nav>
+
+    <main id="main-content">
+      <section class="hero" id="home" aria-label="Pacific Business Park live directory">
+        <div class="hero-site-render" aria-hidden="true"></div>
+        <canvas id="hero-canvas" aria-hidden="true"></canvas>
+        <div class="texture-screen" aria-hidden="true"></div>
+        <picture class="event-takeover-artwork" aria-hidden="true">
+          <source id="event-takeover-artwork-mobile" media="(max-width: 700px)" srcset="images/events/spring-market-scene-mobile-v2.webp" />
+          <img id="event-takeover-artwork" src="images/events/spring-market-scene-v2.webp" alt="" width="1672" height="941" decoding="async" />
+        </picture>
+        <div class="hero-shell">
+          <div class="hero-grid">
+            <div class="hero-copy hero-copy-default" data-reveal>
+              <div class="hero-identity">
+                <div class="hero-logo" aria-hidden="true">
+                  <img src="images/pacific-business-park-logo-cutout.webp" alt="Pacific Business Park" width="1254" height="1254" fetchpriority="high" decoding="async" />
+                </div>
+                <div class="identity-copy">
+                <p class="eyebrow">A place for everyday life</p>
+                <h1><span>Everyday trade.</span><span>Close to home.</span></h1>
+              </div>
+              </div>
+              <p class="hero-intro">
+                Food, services, and everyday essentials brought together in one clear place.
+              </p>
+              <div class="hero-actions">
+                <a class="button button-light" href="#directory-drawer" data-open-directory>
+                  <span>Browse shops</span>
+                  <i data-lucide="arrow-down-right"></i>
+                </a>
+                <a class="button button-ghost" href="#events" data-event-link>
+                  <i data-lucide="calendar-days"></i>
+                  <span>What's on</span>
+                </a>
+              </div>
+            </div>
+            <div class="event-takeover" aria-labelledby="event-takeover-title">
+              <div class="event-takeover-brand">
+                <img src="images/pacific-business-park-logo-cutout.webp" alt="Pacific Business Park" width="1254" height="1254" />
+                <span id="event-takeover-venue">Pacific Business Park</span>
+              </div>
+              <p class="event-takeover-kicker">This weekend at the park</p>
+              <h1 id="event-takeover-title"><span>Spring</span><span>Market</span></h1>
+              <p class="event-takeover-intro" id="event-takeover-description">Great food, local vendors, shopping, live entertainment, and good vibes for the whole community.</p>
+              <div class="event-takeover-facts">
+                <span><i data-lucide="calendar-days"></i><strong id="event-takeover-date">Saturday, 29 August 2026</strong></span>
+                <span><i data-lucide="clock-3"></i><strong id="event-takeover-time">9am–9pm</strong></span>
+                <span><i data-lucide="ticket-check"></i><strong id="event-takeover-admission">Free admission</strong></span>
+              </div>
+              <div class="event-countdown" aria-live="polite">
+                <span class="event-countdown-label">Market opens in</span>
+                <strong id="event-countdown">21h 00m</strong>
+                <small>Automatic event mode</small>
+              </div>
+              <div class="event-takeover-actions">
+                <a class="button event-primary-action" href="#events"><span>See event details</span><i data-lucide="arrow-down-right"></i></a>
+                <a class="button event-secondary-action" id="event-takeover-directions" href="https://www.google.com/maps/search/?api=1&amp;query=1E+Jakes+Gerwel+Drive,+Cape+Town" target="_blank" rel="noopener noreferrer"><i data-lucide="map-pin"></i><span>Get directions</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <a class="hero-peek" href="#directory-drawer" aria-label="Open store directory" data-open-directory>
+          <span>Store directory</span>
+          <i data-lucide="chevrons-down"></i>
+        </a>
+      </section>
+
+      <section class="ticker-band" aria-label="Fast moving highlights">
+        <div class="ticker-track">
+          <span>23 stores trading</span><b></b>
+          <span>25 retail units</span><b></b>
+          <span>Food, grocery, beauty, home, services</span><b></b>
+          <span>Events and centre activations</span><b></b>
+          <span>1E Jakes Gerwel Drive</span><b></b>
+          <span aria-hidden="true">23 stores trading</span><b aria-hidden="true"></b>
+          <span aria-hidden="true">25 retail units</span><b aria-hidden="true"></b>
+          <span aria-hidden="true">Food, grocery, beauty, home, services</span><b aria-hidden="true"></b>
+          <span aria-hidden="true">Events and centre activations</span><b aria-hidden="true"></b>
+          <span aria-hidden="true">1E Jakes Gerwel Drive</span><b aria-hidden="true"></b>
+        </div>
+      </section>
+
+      <section class="featured-stores-section" aria-labelledby="featured-stores-title">
+        <div class="section-shell featured-stores-shell">
+          <div class="featured-stores-heading" data-reveal>
+            <div>
+              <p class="eyebrow">Featured at the park</p>
+              <h2 id="featured-stores-title">A few places worth a closer look.</h2>
+            </div>
+            <a href="#directory-drawer" data-open-directory>
+              <span>View the full directory</span>
+              <i data-lucide="arrow-up-right"></i>
+            </a>
+          </div>
+          <div
+            class="featured-stores-grid"
+            id="featured-stores-grid"
+            aria-label="Rotating featured stores"
+          ></div>
+        </div>
+      </section>
+
+      <section class="section today-section" id="today">
+        <div class="section-shell today-layout">
+          <div class="section-heading" data-reveal>
+            <p class="eyebrow">Store directory</p>
+            <h2>Explore the centre with one clean directory.</h2>
+            <p>
+              Pacific Business Park brings food, grocery, printing, packaging, repairs, home, baby, beauty, wellness, and travel into one clear retail address.
+            </p>
+          </div>
+
+          <div class="utility-strip" data-reveal>
+            <aside class="counter-board" aria-label="Live centre board">
+              <div class="board-header">
+                <span>Centre directory</span>
+                <strong id="calling-number">PBP</strong>
+              </div>
+              <div class="order-row">
+                <span>Unit 24</span>
+                <strong>The Gadget Shop</strong>
+                <em>Open</em>
+              </div>
+              <div class="order-row muted">
+                <span>Unit 6</span>
+                <strong>MilkUp Ice Creamery</strong>
+                <em>Open</em>
+              </div>
+              <div class="order-row muted">
+                <span>Unit 19</span>
+                <strong>Pacific Roadhouse</strong>
+                <em>Open</em>
+              </div>
+              <div class="board-footer">
+                <span id="live-clock">--:--</span>
+                <span>Directory live</span>
+              </div>
+            </aside>
+
+            <div class="hero-launcher" aria-label="Pacific family shortcuts">
+              <button type="button" data-open-store="pacific-dried-fruit">
+                <img src="images/pacific-dried-fruit-and-nut.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async" />
+                <span>Dried Fruit</span>
+              </button>
+              <button type="button" data-open-store="pacific-roadhouse">
+                <img src="images/pacific-roadhouse.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async" />
+                <span>Roadhouse</span>
+              </button>
+              <button type="button" data-open-directory>
+                <i data-lucide="layout-grid"></i>
+                <span>All stores</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="special-stage" data-reveal aria-live="polite">
+            <div class="stage-meta">
+              <span id="special-time">Units 1-2</span>
+              <span id="special-pace">Food and grocery</span>
+            </div>
+            <h3 id="special-title">Fresh Food Run</h3>
+            <p id="special-copy">
+              Pacific Dried Fruit, Visfabriek, The Farm Fruit and Veg, MilkUp Ice Creamery, Crumble Corner, and Pacific Roadhouse keep the daily food stop moving.
+            </p>
+            <div class="stage-bottom">
+              <strong id="special-price">Open</strong>
+              <a class="button button-dark" href="#directory-drawer" data-open-directory>
+                <span>View stores</span>
+                <i data-lucide="arrow-up-right"></i>
+              </a>
+            </div>
+            <div class="heat-meter" aria-label="Demand level">
+              <span id="heat-fill"></span>
+            </div>
+          </div>
+
+          <div class="ticket-stack" id="ticket-stack" data-reveal>
+            <button class="special-ticket active" type="button" data-special="daily">
+              <span class="ticket-number">01</span>
+              <strong>Fresh Food Run</strong>
+              <small>Food, grocery, desserts</small>
+            </button>
+            <button class="special-ticket" type="button" data-special="services">
+              <span class="ticket-number">02</span>
+              <strong>Service Lane</strong>
+              <small>Print, labels, phones, travel</small>
+            </button>
+            <button class="special-ticket" type="button" data-special="home">
+              <span class="ticket-number">03</span>
+              <strong>Home Supply Row</strong>
+              <small>Decor, fabric, packaging, baby</small>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <section
+        class="section events-section event-campaign-section"
+        id="events"
+        aria-labelledby="event-campaign-title"
+        hidden
+      >
+        <picture class="event-campaign-picture" aria-hidden="true">
+          <source
+            id="event-campaign-artwork-mobile"
+            media="(max-width: 700px)"
+            srcset="images/events/spring-market-scene-mobile-v2.webp"
+          />
+          <img
+            class="event-campaign-scene"
+            id="event-campaign-artwork"
+            src="images/events/spring-market-scene-v2.webp"
+            alt=""
+            width="1672"
+            height="941"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+
+        <div class="section-shell event-campaign-native" data-reveal>
+          <p class="event-campaign-script" id="event-campaign-eyebrow">Welcome to</p>
+          <p class="event-campaign-venue" id="event-campaign-venue">Pacific Business Park</p>
+          <h2 id="event-campaign-title"><span>Spring</span><span>Market</span></h2>
+
+          <p class="event-campaign-description" id="event-campaign-description">
+            Great food, local vendors, shopping, live entertainment, and good vibes for the whole community.
+          </p>
+
+          <div class="event-campaign-facts" aria-label="Event date, time, and admission">
+            <span><i data-lucide="calendar-days"></i><strong id="event-campaign-date">Saturday, 29 August 2026</strong></span>
+            <span><i data-lucide="clock-3"></i><strong id="event-campaign-time">9am–9pm</strong></span>
+            <span><i data-lucide="ticket-check"></i><strong id="event-campaign-admission">Free admission</strong></span>
+          </div>
+
+          <p class="event-campaign-note" id="event-campaign-note">
+            All Pacific Business Park shops will be open until 9pm.
+          </p>
+
+          <div class="event-campaign-actions">
+            <a id="event-campaign-directions" href="https://www.google.com/maps/search/?api=1&amp;query=1E+Jakes+Gerwel+Drive,+Cape+Town" target="_blank" rel="noopener noreferrer">
+              <i data-lucide="map-pin"></i><span>Get directions</span>
+            </a>
+            <a id="event-campaign-instagram" href="https://www.instagram.com/pacific_business_park/p/DcbFGfVNT3Q/" target="_blank" rel="noopener noreferrer">
+              <i data-lucide="instagram"></i><span>Original post</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section social-section" id="social">
+        <div class="section-shell">
+          <div class="section-heading" data-reveal>
+            <p class="eyebrow">Follow along</p>
+            <h2>Centre updates from the feed.</h2>
+            <p>
+              Store announcements, events, and quick centre updates run through the live social channels.
+            </p>
+          </div>
+
+          <div class="social-actions" data-reveal>
+            <a class="button button-dark" href="https://www.instagram.com/pacific_business_park/" target="_blank" rel="noopener noreferrer">
+              <i data-lucide="instagram"></i>
+              <span>Instagram</span>
+            </a>
+            <a class="button button-light-outline" href="https://www.tiktok.com/@pacific_business_park" target="_blank" rel="noopener noreferrer">
+              <i data-lucide="music-2"></i>
+              <span>TikTok</span>
+            </a>
+          </div>
+
+          <div class="instagram-grid" data-reveal>
+            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DcLfaQmOnMs/" data-instgrm-version="14">
+              <a href="https://www.instagram.com/p/DcLfaQmOnMs/" target="_blank" rel="noopener noreferrer">Open Instagram post</a>
+            </blockquote>
+            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/Db8OtkZNNbn/" data-instgrm-version="14">
+              <a href="https://www.instagram.com/p/Db8OtkZNNbn/" target="_blank" rel="noopener noreferrer">Open Instagram post</a>
+            </blockquote>
+            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/Db5RuIoOkkD/" data-instgrm-version="14">
+              <a href="https://www.instagram.com/p/Db5RuIoOkkD/" target="_blank" rel="noopener noreferrer">Open Instagram post</a>
+            </blockquote>
+          </div>
+        </div>
+      </section>
+
+      <section class="section visit-section" id="visit">
+        <div class="section-shell visit-layout">
+          <div class="visit-copy" data-reveal>
+            <p class="eyebrow">Visit</p>
+            <h2>Find the centre on Jakes Gerwel Drive.</h2>
+            <p>
+              Pacific Business Park is at 1E Jakes Gerwel Drive, Cape Town. Use the directory, check centre updates, then come through.
+            </p>
+            <div class="visit-actions">
+              <a class="button button-light" href="https://www.google.com/maps/search/?api=1&query=1E+Jakes+Gerwel+Drive,+Cape+Town" target="_blank" rel="noopener noreferrer">
+                <i data-lucide="map-pin"></i>
+                <span>Open map</span>
+              </a>
+              <a class="button button-ghost" href="mailto:info@pacificbusinesspark.co.za">
+                <i data-lucide="mail"></i>
+                <span>Email centre</span>
+              </a>
+              <a class="button button-ghost" href="mailto:info@pacificbusinesspark.co.za?subject=Pacific%20Business%20Park%20leasing%20enquiry">
+                <i data-lucide="key-round"></i>
+                <span>Leasing</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="route-panel" data-reveal aria-label="Pacific Business Park Google map">
+            <iframe
+              title="Pacific Business Park location on Google Maps"
+              src="https://www.google.com/maps?q=1E+Jakes+Gerwel+Drive,+Cape+Town&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+            <div class="route-label">
+              <i data-lucide="map-pin"></i>
+              <span>1E Jakes Gerwel Drive</span>
+            </div>
+            <div class="route-stamp">Open today</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section legal-section" id="legal">
+        <div class="section-shell legal-grid">
+          <article data-reveal>
+            <p class="eyebrow">Privacy</p>
+            <h2>Plain handling of contact details.</h2>
+            <p>
+              Personal details sent by email, WhatsApp, or social media are used only to respond to centre, store, event, or leasing enquiries.
+            </p>
+          </article>
+          <article data-reveal>
+            <p class="eyebrow">Terms</p>
+            <h2>Store information stays practical.</h2>
+            <p>
+              Store hours, offers, contact details, and unit numbers can change. Unit numbers marked TBC are pending confirmation and should not be treated as final.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <span class="brand-mark brand-mark-footer" aria-hidden="true">
+            <img src="images/pacific-business-park-symbol-transparent.webp" alt="" width="1312" height="1199" loading="lazy" decoding="async" />
+          </span>
+          <span class="footer-brand-copy">
+            <strong>Pacific Business Park</strong>
+            <span>Stores, events, and visitor information.</span>
+          </span>
+        </div>
+        <nav class="footer-links" aria-label="Footer links">
+          <a href="#legal">Privacy &amp; terms</a>
+          <a href="#home">Back to top <i data-lucide="arrow-up"></i></a>
+        </nav>
+      </div>
+      <div class="footer-credit-row">
+        <a
+          class="axiel-credit"
+          href="https://axiel.co.za/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Website system by Axiel, built on Atlas OS"
+        >
+          <img src="images/axiel-mark.svg" alt="" width="300" height="300" loading="lazy" decoding="async" aria-hidden="true" />
+          <span class="axiel-credit-copy">
+            <span class="axiel-credit-label">Website system by</span>
+            <span class="axiel-credit-brand">AXIEL <b>/ ATLAS OS</b></span>
+          </span>
+        </a>
+      </div>
+    </footer>
+
+    <section class="directory-drawer" id="directory-drawer" hidden aria-hidden="true">
+      <button class="drawer-scrim" type="button" data-close-directory aria-label="Close store directory"></button>
+      <div class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="directory-title" tabindex="-1">
+        <div class="drawer-header">
+          <div>
+            <p class="eyebrow">Store directory</p>
+            <h2 id="directory-title">Pacific Business Park shops.</h2>
+          </div>
+          <button class="icon-button drawer-close" type="button" data-close-directory aria-label="Close store directory">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+
+        <div class="directory-controls">
+          <label class="directory-search">
+            <span>Search stores</span>
+            <input type="search" id="store-search" placeholder="Search by store name, category, or service" autocomplete="off" />
+          </label>
+          <div class="directory-tabs" id="category-tabs" role="group" aria-label="Filter by category"></div>
+          <div class="alpha-filter" id="alpha-filter" role="group" aria-label="Filter by first letter"></div>
+        </div>
+
+        <p class="directory-results" id="directory-results">Loading stores.</p>
+        <div class="directory-grid" id="directory-grid"></div>
+      </div>
+    </section>
+
+    <dialog class="store-dialog" id="store-dialog" aria-labelledby="dialog-name">
+      <div class="store-dialog-shell" id="store-dialog-shell">
+        <button class="icon-button dialog-close" id="dialog-close" type="button" aria-label="Close store details">
+          <i data-lucide="x"></i>
+        </button>
+        <div class="dialog-brand-stage" id="dialog-brand"></div>
+        <section class="dialog-hero-copy">
+          <p class="dialog-category" id="dialog-category"></p>
+          <h2 id="dialog-name"></h2>
+          <p class="dialog-campaign" id="dialog-campaign"></p>
+        </section>
+        <section class="dialog-details">
+          <div>
+            <p class="dialog-meta" id="dialog-meta"></p>
+            <p class="dialog-hours" id="dialog-hours"></p>
+            <p id="dialog-description"></p>
+            <div class="dialog-actions" id="dialog-actions"></div>
+          </div>
+          <aside class="dialog-palette" id="dialog-palette" aria-label="Storefront colours"></aside>
+        </section>
+      </div>
+    </dialog>
+    <script async src="//www.instagram.com/embed.js"></script>
+  </body>
+</html>

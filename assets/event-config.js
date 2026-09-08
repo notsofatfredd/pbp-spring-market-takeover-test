@@ -1,0 +1,31 @@
+window.EVENT_CAMPAIGN = Object.freeze({
+  enabled: true,
+  previewEnabled: true,
+  previewActiveAt: "2026-08-28T12:00:00+02:00",
+  previewExpiredAt: "2026-08-30T00:00:01+02:00",
+  startsAt: "2026-08-24T00:00:00+02:00",
+  endsAt: "2026-08-30T00:00:00+02:00",
+  eventAt: "2026-08-29T09:00:00+02:00",
+  eyebrow: "Welcome to",
+  venue: "Pacific Business Park",
+  title: "Spring Market",
+  description:
+    "Great food, local vendors, shopping, live entertainment, and good vibes for the whole community.",
+  date: "Saturday, 29 August 2026",
+  time: "9am–9pm",
+  admission: "Free admission",
+  note: "All Pacific Business Park shops will be open until 9pm.",
+  artwork: "images/events/spring-market-scene-v2.webp",
+  mobileArtwork: "images/events/spring-market-scene-mobile-v2.webp",
+  artworkAlt: "",
+  instagramUrl: "https://www.instagram.com/pacific_business_park/p/DcbFGfVNT3Q/",
+  directionsUrl:
+    "https://www.google.com/maps/search/?api=1&query=1E+Jakes+Gerwel+Drive,+Cape+Town",
+  theme: Object.freeze({
+    background: "#ffd8c8",
+    ink: "#38201f",
+    accent: "#ed3974",
+    secondary: "#087c95",
+    highlight: "#f6a41b",
+  }),
+});
