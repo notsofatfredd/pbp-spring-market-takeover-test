@@ -3313,7 +3313,7 @@ body.event-mode .event-secondary-action {
 
   body.event-mode .event-takeover h1 {
     max-width: none;
-    font-size: 45px;
+    font-size: 41px;
     line-height: .82;
   }
 
@@ -8548,4 +8548,12 @@ body.event-section-preview .site-footer {
 
 body.event-section-preview .event-campaign-section {
   min-height: 100svh;
+}
+
+@media (max-width: 700px) {
+  body.event-mode .event-takeover h1 {
+    max-width: none;
+    font-size: 41px;
+    line-height: .82;
+  }
 }
