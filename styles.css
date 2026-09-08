@@ -2273,80 +2273,6 @@ body.directory-open {
   transform: translateY(0);
 }
 
-body.event-mode .hero,
-body.event-mode .events-section,
-body.event-mode .visit-section {
-  background:
-    radial-gradient(circle at 74% 20%, rgba(200, 163, 95, 0.16), transparent 22rem),
-    linear-gradient(135deg, #020308, #071a3f 32%, #053b2f 72%, #031126);
-}
-
-body.event-mode .hero {
-  color: var(--white);
-}
-
-body.event-mode .hero .eyebrow,
-body.event-mode .hero-peek {
-  color: rgba(255, 255, 255, 0.68);
-}
-
-body.event-mode .hero h1 {
-  color: var(--white);
-  text-shadow: 0 18px 60px rgba(0, 0, 0, 0.46);
-}
-
-body.event-mode .identity-tags span {
-  color: rgba(255, 255, 255, 0.82);
-  border-color: rgba(183, 255, 233, 0.34);
-  border-left-color: var(--champagne);
-  background: linear-gradient(90deg, rgba(0, 61, 165, 0.18), rgba(0, 155, 145, 0.12));
-}
-
-body.event-mode .hero-intro {
-  color: rgba(255, 255, 255, 0.86);
-}
-
-body.event-mode .live-chip,
-body.event-mode .mode-switch {
-  color: var(--white);
-  border-color: rgba(255, 255, 255, 0.24);
-  background: rgba(255, 255, 255, 0.08);
-}
-
-body.event-mode .button-ghost {
-  color: var(--white);
-  background: linear-gradient(90deg, rgba(0, 61, 165, 0.2), rgba(0, 155, 145, 0.14));
-  border-color: rgba(183, 255, 233, 0.36);
-}
-
-body.event-mode .hero-launcher {
-  background:
-    linear-gradient(135deg, rgba(3, 7, 19, 0.6), rgba(0, 61, 165, 0.16)),
-    rgba(255, 255, 255, 0.055);
-}
-
-body.event-mode .hero-launcher button {
-  color: var(--white);
-  background: rgba(255, 255, 255, 0.075);
-  border-color: rgba(183, 255, 233, 0.2);
-}
-
-body.event-mode .hero-launcher span {
-  color: rgba(247, 244, 235, 0.86);
-}
-
-body.event-mode .hero-launcher svg {
-  background: rgba(3, 7, 19, 0.38);
-}
-
-body.event-mode .hero-peek {
-  color: var(--mint);
-}
-
-body.event-mode #hero-canvas {
-  opacity: 0.72;
-}
-
 .identity-mark {
   width: min(390px, 40vw);
   padding: 0;
@@ -2786,11 +2712,6 @@ body.event-mode #hero-canvas {
   letter-spacing: 0.1em;
 }
 
-body.event-mode .hero-site-render {
-  opacity: 0.2;
-  filter: grayscale(0.88) contrast(0.96) brightness(0.7);
-}
-
 @media (max-width: 700px) {
   .section-heading h2,
   .visit-copy h2 {
@@ -3106,15 +3027,6 @@ section.hero .hero-copy .hero-identity {
   .utility-strip {
     margin-bottom: 18px;
   }
-}
-
-body.event-mode .ticker-band {
-  background:
-    linear-gradient(90deg, var(--pacific-blue), var(--harbour-blue), var(--signal-teal), var(--forest-green), var(--lane-gold), var(--signal-coral));
-}
-
-body.event-mode .ticker-track {
-  animation-duration: 11s;
 }
 
 /* The event section remains in its original position. This layer lets its
@@ -4028,55 +3940,6 @@ section.hero .hero-copy h1 {
   .hero-intro {
     font-size: 18px;
   }
-}
-
-body.event-mode .hero,
-body.event-mode .events-section,
-body.event-mode .visit-section {
-  background:
-    radial-gradient(circle at 74% 20%, rgba(0, 155, 145, 0.16), transparent 22rem),
-    linear-gradient(135deg, #080b10, #101f37 34%, #0b403b 72%, #06121b);
-}
-
-body.event-mode .hero h1 {
-  color: var(--white);
-}
-
-body.event-mode .hero-intro,
-body.event-mode .hero-peek {
-  color: rgba(255, 255, 255, 0.82);
-}
-
-body.event-mode .hero-launcher {
-  border-color: rgba(255, 255, 255, 0.16);
-  background: rgba(11, 16, 22, 0.7);
-}
-
-body.event-mode .hero-launcher button {
-  color: var(--white);
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.16);
-}
-
-body.event-mode .hero-launcher span {
-  color: rgba(255, 255, 255, 0.84);
-}
-
-body.event-mode .button-ghost {
-  color: var(--white);
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(0, 155, 145, 0.5);
-}
-
-body.event-mode .live-chip,
-body.event-mode .mode-switch {
-  color: var(--white);
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.22);
-}
-
-body.event-mode #hero-canvas {
-  opacity: 0.3;
 }
 
 @media (max-width: 700px) {
@@ -8556,4 +8419,218 @@ body.event-section-preview .event-campaign-section {
     font-size: 41px;
     line-height: .82;
   }
+}
+
+/* Full-site campaign skin. Content and the original Events section stay in place. */
+body.event-mode main > section:not(.hero) {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid color-mix(in srgb, var(--event-ink) 12%, transparent);
+}
+
+body.event-mode main > section:not(.hero):not(.events-section)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .075;
+  background-image: url('images/events/spring-market-scene-v2.webp');
+  background-position: center;
+  background-size: cover;
+}
+
+body.event-mode :is(.featured-stores-section, .today-section, .social-section, .visit-section, .legal-section) > * {
+  position: relative;
+  z-index: 1;
+}
+
+body.event-mode .featured-stores-section {
+  background: color-mix(in srgb, var(--event-background) 78%, white 22%);
+}
+
+body.event-mode :is(.featured-stores-heading, .section-heading, .visit-copy) .eyebrow {
+  color: var(--event-secondary);
+}
+
+body.event-mode :is(.featured-stores-heading, .section-heading, .visit-copy) h2 {
+  color: var(--event-accent);
+}
+
+body.event-mode :is(.counter-board, .social-card, .route-board, .legal-grid article) {
+  border-color: color-mix(in srgb, var(--event-ink) 16%, transparent);
+  background: color-mix(in srgb, var(--event-background) 68%, white 32%);
+  box-shadow: 0 22px 60px color-mix(in srgb, var(--event-ink) 11%, transparent);
+}
+
+body.event-mode .counter-board strong {
+  color: var(--event-ink);
+}
+
+body.event-mode .button-dark {
+  color: #fff;
+  border-color: var(--event-accent);
+  background: var(--event-accent);
+}
+
+body.event-mode .today-section {
+  background:
+    radial-gradient(circle at 8% 16%, color-mix(in srgb, var(--event-highlight) 24%, transparent), transparent 25rem),
+    var(--event-background);
+}
+
+body.event-mode .utility-strip,
+body.event-mode .filter-row {
+  border-color: color-mix(in srgb, var(--event-ink) 16%, transparent);
+  background: color-mix(in srgb, var(--event-background) 72%, white 28%);
+}
+
+body.event-mode .filter-row button[aria-pressed='true'] {
+  color: #fff;
+  background: var(--event-secondary);
+}
+
+body.event-mode .social-section {
+  color: #fff;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--event-secondary) 92%, #041f27), color-mix(in srgb, var(--event-ink) 88%, #071827));
+}
+
+body.event-mode .social-section::before {
+  opacity: .11 !important;
+  mix-blend-mode: screen;
+}
+
+body.event-mode .social-section :is(h2, .eyebrow, p) {
+  color: #fff;
+}
+
+body.event-mode .social-section .social-card {
+  color: var(--event-ink);
+}
+
+body.event-mode .visit-section {
+  color: var(--event-ink);
+  background:
+    radial-gradient(circle at 86% 18%, color-mix(in srgb, var(--event-accent) 22%, transparent), transparent 24rem),
+    color-mix(in srgb, var(--event-background) 76%, white 24%);
+}
+
+body.event-mode .visit-section :is(h2, .eyebrow, p) {
+  color: var(--event-ink);
+}
+
+body.event-mode .visit-section .eyebrow {
+  color: var(--event-secondary);
+}
+
+body.event-mode .route-stamp {
+  color: #fff;
+  background: var(--event-accent);
+}
+
+body.event-mode .legal-section {
+  background: color-mix(in srgb, var(--event-background) 62%, white 38%);
+}
+
+body.event-mode .site-footer {
+  color: #fff;
+  border-top: 8px solid var(--event-highlight);
+  background: color-mix(in srgb, var(--event-secondary) 82%, #062836);
+}
+
+body.event-mode .site-footer :is(a, strong, span) {
+  color: inherit;
+}
+
+body.event-mode .quick-dock {
+  border-color: color-mix(in srgb, var(--event-ink) 18%, transparent);
+  background: color-mix(in srgb, var(--event-background) 88%, white 12%);
+}
+
+body.event-mode .quick-dock [data-event-link] {
+  color: #fff;
+  border-radius: 999px;
+  background: var(--event-accent);
+}
+
+body.preview-section-snapshot [data-reveal] {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+body.preview-section-today main > section:not(#today),
+body.preview-section-social main > section:not(#social),
+body.preview-section-visit main > section:not(#visit) {
+  display: none !important;
+}
+
+body.preview-section-snapshot .site-footer {
+  display: none !important;
+}
+
+body.event-mode .special-ticket,
+body.event-mode .special-ticket:hover,
+body.event-mode .special-ticket:focus-visible,
+body.event-mode .special-ticket.active {
+  color: var(--event-ink);
+  border-color: color-mix(in srgb, var(--event-ink) 16%, transparent);
+  background: color-mix(in srgb, var(--event-background) 68%, white 32%);
+  box-shadow: none;
+}
+
+body.event-mode .special-ticket::before {
+  background: linear-gradient(180deg, var(--event-accent), var(--event-highlight), var(--event-secondary));
+}
+
+body.event-mode .special-ticket.active {
+  border-color: var(--event-accent);
+  background: color-mix(in srgb, var(--event-highlight) 22%, white 78%);
+  box-shadow: inset 0 -3px 0 var(--event-accent);
+}
+
+body.event-mode .special-ticket.active .ticket-number {
+  color: #fff;
+  background: var(--event-accent);
+}
+
+body.event-mode .special-stage {
+  color: var(--event-ink);
+  border-color: color-mix(in srgb, var(--event-ink) 18%, transparent);
+  background:
+    radial-gradient(circle at 84% 18%, color-mix(in srgb, var(--event-highlight) 34%, transparent), transparent 15rem),
+    radial-gradient(circle at 18% 82%, color-mix(in srgb, var(--event-secondary) 18%, transparent), transparent 16rem),
+    color-mix(in srgb, var(--event-background) 62%, white 38%);
+  box-shadow: 0 24px 52px color-mix(in srgb, var(--event-ink) 10%, transparent), 10px 10px 0 color-mix(in srgb, var(--event-highlight) 32%, transparent);
+}
+
+body.event-mode .special-stage::before {
+  border-color: color-mix(in srgb, var(--event-secondary) 44%, transparent);
+}
+
+body.event-mode .special-stage::after {
+  opacity: .05;
+}
+
+body.event-mode .special-stage :is(.stage-meta, h3, p, .stage-bottom strong) {
+  color: var(--event-ink);
+}
+
+body.event-mode .special-stage h3,
+body.event-mode .stage-bottom strong {
+  color: var(--event-accent);
+}
+
+
+body.event-mode .special-stage .button-dark {
+  color: #fff;
+  border-color: var(--event-accent);
+  background: var(--event-accent);
+}
+
+body.event-mode .heat-meter {
+  background: color-mix(in srgb, var(--event-ink) 12%, transparent);
+}
+
+body.event-mode .heat-meter span {
+  background: linear-gradient(90deg, var(--event-highlight), var(--event-accent), var(--event-secondary));
 }

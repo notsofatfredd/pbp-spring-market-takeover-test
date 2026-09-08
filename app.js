@@ -221,6 +221,11 @@ function initEventCampaign() {
     if (element && value) element.textContent = value;
   };
 
+  const setSelectorText = (selector, value) => {
+    const element = document.querySelector(selector);
+    if (element && value) element.textContent = value;
+  };
+
   setText('event-campaign-eyebrow', config.eyebrow);
   setText('event-campaign-venue', config.venue);
   setText('event-campaign-date', config.date);
@@ -233,6 +238,34 @@ function initEventCampaign() {
   setText('event-takeover-date', config.date);
   setText('event-takeover-time', config.time);
   setText('event-takeover-admission', config.admission);
+
+  const takeover = config.takeover || {};
+  setSelectorText('.event-takeover-kicker', takeover.heroKicker);
+  setSelectorText('.header-context span', takeover.headerLabel);
+  setSelectorText('.quick-dock [data-event-link] span', takeover.eventDockLabel);
+  setSelectorText('.featured-stores-heading .eyebrow', takeover.featuredEyebrow);
+  setSelectorText('#featured-stores-title', takeover.featuredTitle);
+  setSelectorText('.today-section .section-heading .eyebrow', takeover.directoryEyebrow);
+  setSelectorText('.today-section .section-heading h2', takeover.directoryTitle);
+  setSelectorText('.today-section .section-heading > p:last-child', takeover.directoryDescription);
+  setSelectorText('.social-section .section-heading .eyebrow', takeover.socialEyebrow);
+  setSelectorText('.social-section .section-heading h2', takeover.socialTitle);
+  setSelectorText('.visit-copy .eyebrow', takeover.visitEyebrow);
+  setSelectorText('.visit-copy h2', takeover.visitTitle);
+  setSelectorText('.footer-brand-copy > span', takeover.footerLine);
+
+  const ticker = document.querySelector('.ticker-track');
+  if (ticker && Array.isArray(takeover.ticker) && takeover.ticker.length) {
+    const messages = [...takeover.ticker, ...takeover.ticker];
+    ticker.replaceChildren(...messages.flatMap((message, index) => {
+      const span = document.createElement('span');
+      span.textContent = message;
+      if (index >= takeover.ticker.length) span.setAttribute('aria-hidden', 'true');
+      const separator = document.createElement('b');
+      if (index >= takeover.ticker.length) separator.setAttribute('aria-hidden', 'true');
+      return [span, separator];
+    }));
+  }
 
   const title = document.getElementById('event-campaign-title');
   const titleWords = String(config.title || '').trim().split(/\s+/).filter(Boolean);
@@ -313,6 +346,14 @@ function initEventCampaign() {
   if (previewState && window.location.hash === '#events') {
     document.body.classList.add('event-section-preview');
     window.setTimeout(() => section.scrollIntoView({ block: 'start' }), 80);
+  }
+
+  const previewSection = new URLSearchParams(window.location.search).get('preview-section');
+  if (previewState && previewSection) {
+    document.body.classList.add('preview-section-snapshot');
+    document.body.classList.add(`preview-section-${previewSection}`);
+    const target = document.getElementById(previewSection);
+    if (target) window.setTimeout(() => target.scrollIntoView({ block: 'start' }), 120);
   }
 
   const boundaries = [config.startsAt, config.endsAt]
