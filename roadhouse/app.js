@@ -25,11 +25,15 @@
   const experience = document.querySelector('.experience');
   const sceneTitle = document.getElementById('scene-title');
   const sceneSubtitle = document.querySelector('.scene-subtitle');
+  const sceneWord = document.querySelector('.scene-word');
+  const imageStage = document.querySelector('.image-stage');
+  const productSlices = document.querySelector('.product-slices');
   const sceneIndex = document.querySelector('.scene-index b');
   const status = document.getElementById('category-status');
   const dialog = document.querySelector('.full-menu-dialog');
   const fullMenu = document.getElementById('full-menu-content');
   let active = 'featured';
+  let transitionTimer;
 
   function cleanName(value) {
     return String(value || '').replace(/\s+(?:—|â€”)+\s*$/, '');
@@ -40,14 +44,58 @@
     return `<li><div class="menu-item-copy"><h3>${cleanName(item.name)}</h3>${description}</div><span class="price">${item.price}</span></li>`;
   }
 
+  function animateProduct(nextSource, category) {
+    if (!imageStage || !productSlices || document.body.classList.contains('motion-reduced')) {
+      hero.src = nextSource;
+      return;
+    }
+
+    clearTimeout(transitionTimer);
+    imageStage.querySelector('.scene-outgoing')?.remove();
+    const outgoing = hero.cloneNode();
+    outgoing.removeAttribute('id');
+    outgoing.className = 'scene-outgoing';
+    outgoing.removeAttribute('fetchpriority');
+    imageStage.prepend(outgoing);
+
+    productSlices.replaceChildren();
+    for (let index = 0; index < 5; index += 1) {
+      const slice = document.createElement('span');
+      slice.style.backgroundImage = `url("${nextSource}")`;
+      slice.style.setProperty('--slice-index', index);
+      slice.style.setProperty('--slice-top', `${index * 20}%`);
+      slice.style.setProperty('--slice-bottom', `${(4 - index) * 20}%`);
+      productSlices.append(slice);
+    }
+
+    imageStage.classList.remove('is-transitioning');
+    experience.classList.remove('scene-changing');
+    hero.src = nextSource;
+    hero.className = '';
+    void imageStage.offsetWidth;
+    imageStage.classList.add('is-transitioning');
+    experience.classList.add('scene-changing');
+
+    transitionTimer = window.setTimeout(() => {
+      outgoing.remove();
+      productSlices.replaceChildren();
+      imageStage.classList.remove('is-transitioning');
+      experience.classList.remove('scene-changing');
+      hero.className = 'scene-enter';
+    }, category === 'burgers' || category === 'featured' ? 1080 : 900);
+  }
+
   function setCategory(category, announce = true) {
     if (!scenes[category] || !menu[category]) return;
+    const previous = active;
     active = category;
     const scene = scenes[category];
     const items = menu[category];
     tabs.forEach(tab => {
       const selected = tab.dataset.category === category;
       tab.setAttribute('aria-selected', String(selected));
+      if (selected) tab.dataset.current = 'true';
+      else delete tab.dataset.current;
       tab.tabIndex = selected ? 0 : -1;
     });
     panel.setAttribute('aria-labelledby', `tab-${category}`);
@@ -60,14 +108,14 @@
     experience.dataset.scene = category;
     sceneTitle.textContent = scene.headline;
     sceneSubtitle.textContent = scene.sceneCopy;
+    sceneWord.textContent = scene.label;
     sceneIndex.textContent = String(tabs.findIndex(tab => tab.dataset.category === category) + 1).padStart(2, '0');
     count.textContent = `${String(items.length).padStart(2, '0')} PICKS`;
     list.innerHTML = items.map(itemMarkup).join('');
-    hero.src = `./assets/${scene.image}`;
+    const nextSource = `./assets/${scene.image}`;
     hero.alt = `Illustrative ${scene.label.toLowerCase()} photograph — menu preview`;
-    hero.classList.remove('scene-enter');
-    void hero.offsetWidth;
-    hero.classList.add('scene-enter');
+    if (announce && previous !== category) animateProduct(nextSource, category);
+    else hero.src = nextSource;
     const nextUrl = new URL(location.href);
     nextUrl.searchParams.set('category', category);
     history.replaceState(null, '', nextUrl);
