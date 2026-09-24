@@ -3,39 +3,6 @@ document.documentElement.classList.add('js');
 const storeDirectory = typeof STORES !== 'undefined' ? STORES : [];
 const storeTones = ['blue', 'teal', 'green', 'gold', 'coral', 'navy'];
 
-const specials = {
-  daily: {
-    title: 'Fresh Food Run',
-    time: 'Units 1-2-6-16-18-19',
-    pace: 'Food and grocery',
-    copy:
-      'Pacific Dried Fruit, Visfabriek, The Farm Fruit and Veg, MilkUp Ice Creamery, Crumble Corner, and Pacific Roadhouse keep the daily food stop moving.',
-    price: 'Open',
-    heat: 86,
-    call: '23',
-  },
-  services: {
-    title: 'Service Lane',
-    time: 'Units 4-10-20-24',
-    pace: 'Print, labels, phones, travel',
-    copy:
-      'Pagemasters Graphix, Elysian Labels, Miller\'s Travel & Tours, and The Gadget Shop cover business needs, devices, bookings, and quick repairs.',
-    price: 'Active',
-    heat: 74,
-    call: '23',
-  },
-  home: {
-    title: 'Home Supply Row',
-    time: 'Units 3-8-9-12-14-15',
-    pace: 'Home, fabric, packaging, baby',
-    copy:
-      'Curtains On Us, Snyders Packaging, Colorado, Plain Fabrics & Trim, The Nappy Warehouse, and Cozy Collection carry the practical stops.',
-    price: 'Trading',
-    heat: 79,
-    call: '23',
-  },
-};
-
 const reducedMotion = false;
 let lastDirectoryTrigger = null;
 let lastStoreTrigger = null;
@@ -998,36 +965,61 @@ function initDirectory() {
   refreshIcons();
 }
 
-function initSpecials() {
-  const buttons = Array.from(document.querySelectorAll('.special-ticket'));
-  const title = document.getElementById('special-title');
-  const time = document.getElementById('special-time');
-  const pace = document.getElementById('special-pace');
-  const copy = document.getElementById('special-copy');
-  const price = document.getElementById('special-price');
-  const heat = document.getElementById('heat-fill');
-  const calling = document.getElementById('calling-number');
+function initRoadhousePreview() {
+  const panel = document.getElementById('roadhouse-preview');
+  const frame = panel?.querySelector('iframe');
+  const heading = document.getElementById('roadhouse-preview-title');
+  const triggers = Array.from(document.querySelectorAll('[data-open-roadhouse]'));
+  const close = panel?.querySelector('[data-close-roadhouse]');
+  if (!panel || !frame || !triggers.length) return;
 
-  function selectSpecial(id) {
-    const special = specials[id];
-    if (!special) return;
+  let hideTimer;
+  let lastTrigger = triggers.at(-1);
 
-    buttons.forEach((button) => {
-      button.classList.toggle('active', button.dataset.special === id);
-    });
+  function setOpen(open, { moveFocus = true, updateHash = true } = {}) {
+    window.clearTimeout(hideTimer);
+    triggers.forEach((trigger) => trigger.setAttribute('aria-expanded', String(open)));
 
-    title.textContent = special.title;
-    time.textContent = special.time;
-    pace.textContent = special.pace;
-    copy.textContent = special.copy;
-    price.textContent = special.price;
-    heat.style.width = `${special.heat}%`;
-    calling.textContent = special.call;
+    if (open) {
+      panel.hidden = false;
+      if (!frame.hasAttribute('src')) frame.src = frame.dataset.src;
+      window.requestAnimationFrame(() => panel.classList.add('is-open'));
+      if (updateHash) history.replaceState(null, '', '#roadhouse-preview');
+      window.setTimeout(() => {
+        if (moveFocus) heading?.focus({ preventScroll: true });
+        panel.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      }, 120);
+      return;
+    }
+
+    panel.classList.remove('is-open');
+    if (updateHash && window.location.hash === '#roadhouse-preview') history.replaceState(null, '', '#today');
+    hideTimer = window.setTimeout(() => {
+      panel.hidden = true;
+    }, 240);
+    if (moveFocus) lastTrigger?.focus();
   }
 
-  buttons.forEach((button) => {
-    button.addEventListener('click', () => selectSpecial(button.dataset.special));
+  triggers.forEach((trigger) => trigger.addEventListener('click', (event) => {
+    event.preventDefault();
+    lastTrigger = trigger;
+    setOpen(true);
+  }));
+  close?.addEventListener('click', () => setOpen(false));
+  panel.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') setOpen(false);
   });
+
+  window.addEventListener('message', (event) => {
+    if (event.origin !== window.location.origin || event.source !== frame.contentWindow) return;
+    if (event.data?.type !== 'roadhouse:height') return;
+    const height = Math.max(720, Math.min(1600, Number(event.data.height) || 0));
+    frame.style.height = `${height}px`;
+  });
+
+  if (window.location.hash === '#roadhouse-preview') {
+    window.setTimeout(() => setOpen(true, { moveFocus: false, updateHash: false }), 0);
+  }
 }
 
 function setupCanvas(canvas, draw) {
@@ -1265,7 +1257,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initStoreDialog();
   initStoreLaunchers();
   initFeaturedStores();
-  initSpecials();
+  initRoadhousePreview();
   initMarketplace();
   initCanvases();
   cycleCallingNumber();

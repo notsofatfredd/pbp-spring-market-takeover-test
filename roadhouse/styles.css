@@ -36,3 +36,15 @@ body.motion-enabled .product-slices{display:block!important}
 @media(max-width:800px){.image-stage{left:4%;right:-2%;top:17%;bottom:1%;overflow:visible}.product-floor{left:18%;right:10%;bottom:9%}}
 @media(max-width:480px){.image-stage{left:-2%;right:-8%;top:16%;bottom:0}.product-floor{left:20%;right:11%;bottom:10%}}
 @media(prefers-reduced-motion:reduce){body.motion-enabled .product-slices{display:block!important}}
+
+/* Same-origin embedded preview inside the Pacific Business Park homepage. */
+html.embed-mode,html.embed-mode body{background:var(--wine-deep)}
+html.embed-mode .skip-link,html.embed-mode .park-bar,html.embed-mode .storefront-heading,html.embed-mode .storefront-strip,html.embed-mode .visit-section,html.embed-mode .events-banner,html.embed-mode .footer{display:none!important}
+html.embed-mode #storefront{min-height:0}
+html.embed-mode .roadhouse-stage{min-height:780px}
+html.embed-mode .category-shell{top:28px}
+html.embed-mode .scene-topline{top:58px}
+html.embed-mode .menu-panel{top:250px}
+html.embed-mode .scene-word{top:24%}
+html.embed-mode .scene-copy{top:45%}
+@media(max-width:800px){html.embed-mode .roadhouse-stage{min-height:0}html.embed-mode .category-shell{top:auto}html.embed-mode .scene-topline{top:22px}html.embed-mode .scene-word{top:31%}html.embed-mode .scene-copy{top:102px}html.embed-mode .menu-panel{top:auto;margin-bottom:0}}

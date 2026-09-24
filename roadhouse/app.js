@@ -296,4 +296,14 @@
   });
   if ('requestIdleCallback' in window) requestIdleCallback(preloadProducts, { timeout: 1800 });
   else window.setTimeout(preloadProducts, 900);
+
+  if (document.documentElement.classList.contains('embed-mode') && window.parent !== window) {
+    const reportHeight = () => window.parent.postMessage({
+      type: 'roadhouse:height',
+      height: document.documentElement.scrollHeight
+    }, window.location.origin);
+    new ResizeObserver(() => requestAnimationFrame(reportHeight)).observe(document.body);
+    window.addEventListener('load', reportHeight, { once: true });
+    window.setTimeout(reportHeight, 300);
+  }
 })();

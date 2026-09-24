@@ -8631,6 +8631,254 @@ body.event-mode .heat-meter {
   background: color-mix(in srgb, var(--event-ink) 12%, transparent);
 }
 
+/* Pacific Roadhouse now lives inside the park, replacing the Fresh Food Run feature. */
+.roadhouse-feature {
+  position: relative;
+  grid-column: 1 / -1;
+  min-height: 620px;
+  overflow: hidden;
+  isolation: isolate;
+  color: #f3efe2;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 69% 48%, rgba(126, 42, 73, 0.88), transparent 31%),
+    radial-gradient(circle at 48% 52%, #4b172b 0, #2a0b16 48%, #13060c 100%);
+  box-shadow: 0 28px 70px rgba(29, 29, 31, 0.16);
+}
+
+.roadhouse-feature::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(8, 3, 6, 0.72), transparent 45%, rgba(8, 3, 6, 0.18));
+  pointer-events: none;
+}
+
+.roadhouse-feature-word {
+  position: absolute;
+  z-index: 0;
+  left: 5%;
+  top: 24%;
+  color: #fff;
+  font-family: Bahnschrift, "Arial Narrow", "Segoe UI", sans-serif;
+  font-size: clamp(100px, 15vw, 220px);
+  font-weight: 900;
+  line-height: .78;
+  letter-spacing: -.06em;
+  opacity: .055;
+  pointer-events: none;
+}
+
+.roadhouse-feature-copy {
+  position: relative;
+  z-index: 3;
+  width: min(42%, 470px);
+  padding: 64px 0 58px 64px;
+}
+
+.roadhouse-feature-eyebrow {
+  margin: 0 0 28px;
+  color: #f06a43;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.roadhouse-feature-copy h3 {
+  margin: 0;
+  color: #f3efe2;
+  font-family: Bahnschrift, "Arial Narrow", "Segoe UI", sans-serif;
+  font-size: clamp(64px, 7.4vw, 112px);
+  font-weight: 900;
+  line-height: .82;
+  letter-spacing: -.045em;
+  text-transform: uppercase;
+}
+
+.roadhouse-feature-copy > p:not(.roadhouse-feature-eyebrow) {
+  max-width: 420px;
+  margin: 30px 0 0;
+  color: rgba(243, 239, 226, .78);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.roadhouse-preview-toggle {
+  min-height: 52px;
+  margin-top: 34px;
+  color: #172018;
+  background: #f06a43;
+  border-color: #f06a43;
+}
+
+.roadhouse-preview-toggle:hover,
+.roadhouse-preview-toggle:focus-visible {
+  color: #172018;
+  background: #f88a68;
+  border-color: #f88a68;
+}
+
+.roadhouse-feature-copy small {
+  display: block;
+  margin-top: 14px;
+  color: rgba(243, 239, 226, .48);
+  font-size: 11px;
+  letter-spacing: .05em;
+}
+
+.roadhouse-feature-product {
+  position: absolute;
+  z-index: 2;
+  inset: 4% 0 0 37%;
+  pointer-events: none;
+}
+
+.roadhouse-feature-product span {
+  position: absolute;
+  left: 16%;
+  right: 8%;
+  bottom: 13%;
+  height: 14%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(3, 1, 2, .82), transparent 70%);
+  filter: blur(12px);
+}
+
+.roadhouse-feature-product img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 34px 28px rgba(5, 1, 4, .38)) saturate(1.06);
+  transform: translate3d(0, 0, 0);
+}
+
+.roadhouse-preview-panel {
+  grid-column: 1 / -1;
+  overflow: hidden;
+  color: #f3efe2;
+  border-radius: 24px;
+  background: #13060c;
+  border: 1px solid rgba(29, 29, 31, .08);
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 220ms ease, transform 320ms cubic-bezier(.22, .75, .18, 1);
+}
+
+.roadhouse-preview-panel.is-open {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.roadhouse-preview-header {
+  min-height: 94px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 22px 28px;
+  border-bottom: 1px solid rgba(243, 239, 226, .14);
+}
+
+.roadhouse-preview-header .eyebrow {
+  color: #f06a43;
+}
+
+.roadhouse-preview-header h3 {
+  margin-top: 5px;
+  color: #f3efe2;
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1;
+}
+
+.roadhouse-preview-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.roadhouse-preview-actions a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #f3efe2;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.roadhouse-preview-actions a svg {
+  width: 18px;
+}
+
+.roadhouse-preview-actions button {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  color: #172018;
+  border-radius: 50%;
+  background: #f3efe2;
+}
+
+.roadhouse-preview-actions button svg {
+  width: 21px;
+}
+
+.roadhouse-preview-panel iframe {
+  width: 100%;
+  height: 900px;
+  display: block;
+  border: 0;
+  background: #2a0b16;
+}
+
+@media (max-width: 800px) {
+  .roadhouse-feature {
+    min-height: 720px;
+  }
+
+  .roadhouse-feature-copy {
+    width: auto;
+    padding: 42px 28px 0;
+  }
+
+  .roadhouse-feature-copy h3 {
+    font-size: clamp(58px, 18vw, 84px);
+  }
+
+  .roadhouse-feature-copy > p:not(.roadhouse-feature-eyebrow) {
+    max-width: 340px;
+    font-size: 15px;
+  }
+
+  .roadhouse-feature-product {
+    inset: 39% -18% -2% 8%;
+  }
+
+  .roadhouse-feature-word {
+    top: 45%;
+    font-size: 34vw;
+  }
+
+  .roadhouse-preview-header {
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .roadhouse-preview-actions a {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roadhouse-preview-panel {
+    transition: none;
+  }
+}
+
 body.event-mode .heat-meter span {
   background: linear-gradient(90deg, var(--event-highlight), var(--event-accent), var(--event-secondary));
 }

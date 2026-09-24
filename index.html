@@ -75,11 +75,11 @@
       }
     </script>
 
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=20260924-6" />
     <script src="assets/event-config.js"></script>
     <script src="assets/stores-data.js"></script>
     <script src="vendor/lucide.min.js" defer></script>
-    <script src="app.js" defer></script>
+    <script src="app.js?v=20260924-6" defer></script>
     <script src="storefront-integration.js" defer></script>
   </head>
   <body>
@@ -95,7 +95,7 @@
         <a href="#today">Shops</a>
         <a href="#events" data-event-link>What’s On</a>
         <a href="#visit">Visit</a>
-        <a class="marketplace-link" href="roadhouse/">
+        <a class="marketplace-link" href="#roadhouse-preview" data-open-roadhouse aria-controls="roadhouse-preview" aria-expanded="false">
           <span>Pacific Roadhouse</span>
           <small>Explore the menu</small>
         </a>
@@ -112,7 +112,7 @@
       <a href="#today"><span>Shops</span><i data-lucide="arrow-up-right"></i></a>
       <a href="#events" data-event-link><span>What’s On</span><i data-lucide="arrow-up-right"></i></a>
       <a href="#visit"><span>Visit</span><i data-lucide="arrow-up-right"></i></a>
-      <a href="roadhouse/"><span>Pacific Roadhouse</span><i data-lucide="arrow-up-right"></i></a>
+      <a href="#roadhouse-preview" data-open-roadhouse aria-controls="roadhouse-preview" aria-expanded="false"><span>Pacific Roadhouse</span><i data-lucide="arrow-down-right"></i></a>
     </nav>
 
     <div class="marketplace-notice" id="marketplace-notice" role="status" aria-live="polite" hidden>
@@ -282,7 +282,7 @@
                 <img src="images/pacific-dried-fruit-and-nut.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async" />
                 <span>Dried Fruit</span>
               </button>
-              <button type="button" data-open-store="pacific-roadhouse">
+              <button type="button" data-open-roadhouse aria-controls="roadhouse-preview" aria-expanded="false">
                 <img src="images/pacific-roadhouse.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async" />
                 <span>Roadhouse</span>
               </button>
@@ -293,44 +293,37 @@
             </div>
           </div>
 
-          <div class="special-stage" data-reveal aria-live="polite">
-            <div class="stage-meta">
-              <span id="special-time">Units 1-2</span>
-              <span id="special-pace">Food and grocery</span>
+          <article class="roadhouse-feature" data-reveal aria-labelledby="roadhouse-feature-title">
+            <div class="roadhouse-feature-word" aria-hidden="true">ROADHOUSE</div>
+            <div class="roadhouse-feature-copy">
+              <p class="roadhouse-feature-eyebrow">Inside Pacific Business Park</p>
+              <h3 id="roadhouse-feature-title">Pacific<br />Roadhouse</h3>
+              <p>Step into the animated cafeteria preview, explore each craving, and see the matching illustrative menu without leaving the park.</p>
+              <button class="button roadhouse-preview-toggle" type="button" data-open-roadhouse aria-controls="roadhouse-preview" aria-expanded="false">
+                <span>Open menu preview</span>
+                <i data-lucide="arrow-down-right"></i>
+              </button>
+              <small>Preview menu and photography are illustrative.</small>
             </div>
-            <h3 id="special-title">Fresh Food Run</h3>
-            <p id="special-copy">
-              Pacific Dried Fruit, Visfabriek, The Farm Fruit and Veg, MilkUp Ice Creamery, Crumble Corner, and Pacific Roadhouse keep the daily food stop moving.
-            </p>
-            <div class="stage-bottom">
-              <strong id="special-price">Open</strong>
-              <a class="button button-dark" href="#directory-drawer" data-open-directory>
-                <span>View stores</span>
-                <i data-lucide="arrow-up-right"></i>
-              </a>
+            <div class="roadhouse-feature-product" aria-hidden="true">
+              <span></span>
+              <img src="roadhouse/assets/product-burger-v1.webp" alt="" width="1672" height="941" loading="lazy" decoding="async" />
             </div>
-            <div class="heat-meter" aria-label="Demand level">
-              <span id="heat-fill"></span>
-            </div>
-          </div>
+          </article>
 
-          <div class="ticket-stack" id="ticket-stack" data-reveal>
-            <button class="special-ticket active" type="button" data-special="daily">
-              <span class="ticket-number">01</span>
-              <strong>Fresh Food Run</strong>
-              <small>Food, grocery, desserts</small>
-            </button>
-            <button class="special-ticket" type="button" data-special="services">
-              <span class="ticket-number">02</span>
-              <strong>Service Lane</strong>
-              <small>Print, labels, phones, travel</small>
-            </button>
-            <button class="special-ticket" type="button" data-special="home">
-              <span class="ticket-number">03</span>
-              <strong>Home Supply Row</strong>
-              <small>Decor, fabric, packaging, baby</small>
-            </button>
-          </div>
+          <section class="roadhouse-preview-panel" id="roadhouse-preview" aria-labelledby="roadhouse-preview-title" hidden>
+            <div class="roadhouse-preview-header">
+              <div>
+                <p class="eyebrow">Pacific Roadhouse</p>
+                <h3 id="roadhouse-preview-title" tabindex="-1">Choose a craving.</h3>
+              </div>
+              <div class="roadhouse-preview-actions">
+                <a href="roadhouse/">Open full view <i data-lucide="arrow-up-right"></i></a>
+                <button type="button" data-close-roadhouse aria-label="Close Roadhouse menu preview"><i data-lucide="x"></i></button>
+              </div>
+            </div>
+            <iframe title="Pacific Roadhouse animated menu preview" data-src="roadhouse/?embed=1" loading="lazy"></iframe>
+          </section>
 
         </div>
       </section>
