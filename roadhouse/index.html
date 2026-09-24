@@ -7,10 +7,11 @@
   <meta name="description" content="Explore the Pacific Roadhouse visual menu, a storefront inside Pacific Business Park. Preview menu and photography.">
   <title>Pacific Roadhouse · Pacific Business Park</title>
   <link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
-  <link rel="preload" href="./assets/03_burger.webp" as="image">
-  <link rel="stylesheet" href="./styles.css?v=20260924-4">
+  <link rel="preload" href="./assets/product-burger-v1.webp" as="image">
+  <link rel="stylesheet" href="./styles.css?v=20260924-5">
+  <script src="./assets/gsap.min.js" defer></script>
   <script src="./menu.js" defer></script>
-  <script src="./app.js?v=20260924-4" defer></script>
+  <script src="./app.js?v=20260924-5" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#menu-panel">Skip to the menu</a>
@@ -49,7 +50,7 @@
         <div class="scene-topline"><span class="scene-eyebrow">THE ROADHOUSE EDIT</span><span class="scene-index"><b>01</b> / 09</span></div>
         <div class="scene-word" aria-hidden="true" data-ui-id="reference.wordmark">FEATURED</div>
         <div class="scene-copy" data-ui-id="reference.copy"><h2 id="scene-title">COME<br>HUNGRY.</h2><p class="scene-subtitle">Make a little room for a lot of flavour.</p></div>
-        <div class="image-stage" data-ui-id="reference.product"><img id="hero-image" src="./assets/03_burger.webp" alt="Illustrative burger photograph — menu preview" width="1672" height="941" fetchpriority="high"><div class="product-slices" aria-hidden="true"></div><div class="scene-shade"></div></div>
+        <div class="image-stage" data-ui-id="reference.product"><div class="product-floor" aria-hidden="true"></div><img id="hero-image" class="product-base" src="./assets/product-burger-v1.webp" alt="Illustrative burger product plate — menu preview" width="1672" height="941" fetchpriority="high"><div class="product-layer-stack product-slices" aria-hidden="true"></div><div class="scene-shade"></div></div>
         <div class="scene-footer"><span class="scene-category">Featured favourites</span><a href="#menu-panel" class="menu-jump">Explore the menu <span aria-hidden="true">↘</span></a></div>
         <span class="photo-label">ILLUSTRATIVE PHOTOGRAPHY</span>
       </section>
