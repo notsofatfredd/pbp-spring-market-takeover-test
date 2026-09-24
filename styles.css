@@ -6747,7 +6747,7 @@ section.hero .hero-copy h1 {
   }
 }
 
-/* Web-native Spring Market scene: campaign art frames real, responsive content. */
+/* Reusable web-native event scene: configured campaign art frames responsive content. */
 .event-campaign-section {
   position: relative;
   isolation: isolate;
@@ -8428,17 +8428,6 @@ body.event-mode main > section:not(.hero) {
   border-top: 1px solid color-mix(in srgb, var(--event-ink) 12%, transparent);
 }
 
-body.event-mode main > section:not(.hero):not(.events-section)::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: .075;
-  background-image: url('images/events/spring-market-scene-v2.webp');
-  background-position: center;
-  background-size: cover;
-}
-
 body.event-mode :is(.featured-stores-section, .today-section, .social-section, .visit-section, .legal-section) > * {
   position: relative;
   z-index: 1;
@@ -8568,70 +8557,12 @@ body.preview-section-snapshot .site-footer {
   display: none !important;
 }
 
-body.event-mode .special-ticket,
-body.event-mode .special-ticket:hover,
-body.event-mode .special-ticket:focus-visible,
-body.event-mode .special-ticket.active {
-  color: var(--event-ink);
-  border-color: color-mix(in srgb, var(--event-ink) 16%, transparent);
-  background: color-mix(in srgb, var(--event-background) 68%, white 32%);
-  box-shadow: none;
+/* Pacific Roadhouse residency inside the parent park experience. */
+.roadhouse-residency {
+  grid-column: 1 / -1;
+  min-width: 0;
 }
 
-body.event-mode .special-ticket::before {
-  background: linear-gradient(180deg, var(--event-accent), var(--event-highlight), var(--event-secondary));
-}
-
-body.event-mode .special-ticket.active {
-  border-color: var(--event-accent);
-  background: color-mix(in srgb, var(--event-highlight) 22%, white 78%);
-  box-shadow: inset 0 -3px 0 var(--event-accent);
-}
-
-body.event-mode .special-ticket.active .ticket-number {
-  color: #fff;
-  background: var(--event-accent);
-}
-
-body.event-mode .special-stage {
-  color: var(--event-ink);
-  border-color: color-mix(in srgb, var(--event-ink) 18%, transparent);
-  background:
-    radial-gradient(circle at 84% 18%, color-mix(in srgb, var(--event-highlight) 34%, transparent), transparent 15rem),
-    radial-gradient(circle at 18% 82%, color-mix(in srgb, var(--event-secondary) 18%, transparent), transparent 16rem),
-    color-mix(in srgb, var(--event-background) 62%, white 38%);
-  box-shadow: 0 24px 52px color-mix(in srgb, var(--event-ink) 10%, transparent), 10px 10px 0 color-mix(in srgb, var(--event-highlight) 32%, transparent);
-}
-
-body.event-mode .special-stage::before {
-  border-color: color-mix(in srgb, var(--event-secondary) 44%, transparent);
-}
-
-body.event-mode .special-stage::after {
-  opacity: .05;
-}
-
-body.event-mode .special-stage :is(.stage-meta, h3, p, .stage-bottom strong) {
-  color: var(--event-ink);
-}
-
-body.event-mode .special-stage h3,
-body.event-mode .stage-bottom strong {
-  color: var(--event-accent);
-}
-
-
-body.event-mode .special-stage .button-dark {
-  color: #fff;
-  border-color: var(--event-accent);
-  background: var(--event-accent);
-}
-
-body.event-mode .heat-meter {
-  background: color-mix(in srgb, var(--event-ink) 12%, transparent);
-}
-
-/* Pacific Roadhouse now lives inside the park, replacing the Fresh Food Run feature. */
 .roadhouse-feature {
   position: relative;
   grid-column: 1 / -1;
@@ -8644,6 +8575,10 @@ body.event-mode .heat-meter {
     radial-gradient(circle at 69% 48%, rgba(126, 42, 73, 0.88), transparent 31%),
     radial-gradient(circle at 48% 52%, #4b172b 0, #2a0b16 48%, #13060c 100%);
   box-shadow: 0 28px 70px rgba(29, 29, 31, 0.16);
+}
+
+.roadhouse-feature.is-previewing {
+  display: none;
 }
 
 .roadhouse-feature::before {
@@ -8756,7 +8691,7 @@ body.event-mode .heat-meter {
 }
 
 .roadhouse-preview-panel {
-  grid-column: 1 / -1;
+  scroll-margin-top: calc(var(--header-height) + 20px);
   overflow: hidden;
   color: #f3efe2;
   border-radius: 24px;
@@ -8814,13 +8749,19 @@ body.event-mode .heat-meter {
 }
 
 .roadhouse-preview-actions button {
-  width: 48px;
+  width: auto;
   height: 48px;
-  display: grid;
-  place-items: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 10px 0 18px;
   color: #172018;
-  border-radius: 50%;
+  border-radius: 999px;
   background: #f3efe2;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
 }
 
 .roadhouse-preview-actions button svg {
@@ -8833,6 +8774,16 @@ body.event-mode .heat-meter {
   display: block;
   border: 0;
   background: #2a0b16;
+}
+
+.quick-dock {
+  transition: opacity 180ms ease, transform 220ms ease;
+}
+
+body.roadhouse-open .quick-dock {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 18px);
 }
 
 @media (max-width: 800px) {
@@ -8868,6 +8819,21 @@ body.event-mode .heat-meter {
     padding: 20px;
   }
 
+  .roadhouse-preview-header > div:first-child {
+    min-width: 0;
+    padding-right: 8px;
+  }
+
+  .roadhouse-preview-actions button {
+    width: 48px;
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  .roadhouse-preview-actions button span {
+    display: none;
+  }
+
   .roadhouse-preview-actions a {
     display: none;
   }
@@ -8877,8 +8843,4 @@ body.event-mode .heat-meter {
   .roadhouse-preview-panel {
     transition: none;
   }
-}
-
-body.event-mode .heat-meter span {
-  background: linear-gradient(90deg, var(--event-highlight), var(--event-accent), var(--event-secondary));
 }

@@ -1,6 +1,6 @@
 # Pacific Business Park website v21
 
-Future event builds must follow [NEXT-EVENT-TAKEOVER-BRIEF.md](NEXT-EVENT-TAKEOVER-BRIEF.md).
+**ATLAS product code:** `ATL-26230`
 
 This is the main Pacific Business Park website. It is separate from the marketplace project.
 
@@ -28,10 +28,10 @@ Upload the contents of the release folder directly into `public_html/`. Enable *
 
 ## Event campaign switch
 
-The temporary event section is controlled in `assets/event-config.js`.
+The reusable temporary-event section is controlled in `assets/event-config.js` and is dormant until a verified campaign is supplied.
 
-- Set `enabled` to `false` to remove the section and every “What’s On” navigation link.
+- Keep `enabled` set to `false` when no current event is verified; this removes the section and every “What’s On” navigation link.
 - Set `startsAt` and `endsAt` to schedule when the section appears and disappears.
 - Replace the artwork, copy, links, and five theme colours for the next campaign.
 
-The current Spring Market campaign switches off automatically at midnight after 29 August 2026.
+Past events remain in Git history and release tags, not as promoted public routes.

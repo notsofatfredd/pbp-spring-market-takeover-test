@@ -165,23 +165,13 @@ function initEventCampaign() {
   const eventLinks = document.querySelectorAll('[data-event-link]');
   if (!section) return;
 
-  const searchParams = new URLSearchParams(window.location.search);
-  const archiveMode = searchParams.get('event-archive') === '1';
-  const previewState = config?.previewEnabled
-    ? searchParams.get('event-preview')
-    : null;
-  const previewTimestamp = previewState === 'active'
-    ? Date.parse(config.previewActiveAt)
-    : previewState === 'expired'
-      ? Date.parse(config.previewExpiredAt)
-      : null;
-  const now = Number.isFinite(previewTimestamp) ? previewTimestamp : Date.now();
-  const isLive = archiveMode || eventCampaignIsLive(config, now);
+  const now = Date.now();
+  const isLive = eventCampaignIsLive(config, now);
   document.body.classList.toggle('event-mode', isLive);
   section.hidden = !isLive;
   eventLinks.forEach((link) => {
-    link.hidden = false;
-    link.href = isLive ? '#events' : 'events/';
+    link.hidden = !isLive;
+    link.href = '#events';
   });
 
   if (!isLive) return;
@@ -210,8 +200,8 @@ function initEventCampaign() {
   setText('event-takeover-admission', config.admission);
 
   const takeover = config.takeover || {};
-  setSelectorText('.event-takeover-kicker', archiveMode ? 'Past event · 29 August 2026' : takeover.heroKicker);
-  setSelectorText('.header-context span', archiveMode ? 'Spring Market archive · Pacific Business Park' : takeover.headerLabel);
+  setSelectorText('.event-takeover-kicker', takeover.heroKicker);
+  setSelectorText('.header-context span', takeover.headerLabel);
   setSelectorText('.quick-dock [data-event-link] span', takeover.eventDockLabel);
   setSelectorText('.featured-stores-heading .eyebrow', takeover.featuredEyebrow);
   setSelectorText('#featured-stores-title', takeover.featuredTitle);
@@ -261,7 +251,7 @@ function initEventCampaign() {
   }
 
   const artwork = document.getElementById('event-campaign-artwork');
-  if (artwork) {
+  if (artwork && config.artwork) {
     artwork.src = config.artwork;
     artwork.alt = config.artworkAlt ?? '';
   }
@@ -293,12 +283,10 @@ function initEventCampaign() {
   });
 
   const countdown = document.getElementById('event-countdown');
-  const simulatedOffset = Number.isFinite(previewTimestamp) ? previewTimestamp - Date.now() : 0;
   const updateCountdown = () => {
     if (!countdown) return;
     const eventTime = Date.parse(config.eventAt || config.startsAt);
-    const effectiveNow = Date.now() + simulatedOffset;
-    const remaining = Math.max(0, eventTime - effectiveNow);
+    const remaining = Math.max(0, eventTime - Date.now());
     if (remaining === 0) {
       countdown.textContent = 'Event day';
       return;
@@ -312,19 +300,6 @@ function initEventCampaign() {
   };
   updateCountdown();
   window.setInterval(updateCountdown, 30000);
-
-  if ((previewState || archiveMode) && window.location.hash === '#events') {
-    document.body.classList.add('event-section-preview');
-    window.setTimeout(() => section.scrollIntoView({ block: 'start' }), 80);
-  }
-
-  const previewSection = new URLSearchParams(window.location.search).get('preview-section');
-  if ((previewState || archiveMode) && previewSection) {
-    document.body.classList.add('preview-section-snapshot');
-    document.body.classList.add(`preview-section-${previewSection}`);
-    const target = document.getElementById(previewSection);
-    if (target) window.setTimeout(() => target.scrollIntoView({ block: 'start' }), 120);
-  }
 
   const boundaries = [config.startsAt, config.endsAt]
     .map((value) => Date.parse(value))
@@ -967,6 +942,7 @@ function initDirectory() {
 
 function initRoadhousePreview() {
   const panel = document.getElementById('roadhouse-preview');
+  const feature = document.querySelector('.roadhouse-feature');
   const frame = panel?.querySelector('iframe');
   const heading = document.getElementById('roadhouse-preview-title');
   const triggers = Array.from(document.querySelectorAll('[data-open-roadhouse]'));
@@ -978,6 +954,8 @@ function initRoadhousePreview() {
 
   function setOpen(open, { moveFocus = true, updateHash = true } = {}) {
     window.clearTimeout(hideTimer);
+    document.body.classList.toggle('roadhouse-open', open);
+    feature?.classList.toggle('is-previewing', open);
     triggers.forEach((trigger) => trigger.setAttribute('aria-expanded', String(open)));
 
     if (open) {

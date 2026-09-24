@@ -1,7 +1,7 @@
 {
   "name": "Pacific Business Park",
   "short_name": "Pacific Park",
-  "description": "Stores, events and visitor information for Pacific Business Park in Cape Town.",
+  "description": "Stores, centre updates and visitor information for Pacific Business Park in Cape Town.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
