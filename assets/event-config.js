@@ -1,6 +1,6 @@
 window.EVENT_CAMPAIGN = Object.freeze({
   enabled: true,
-  previewEnabled: true,
+  previewEnabled: false,
   previewActiveAt: "2026-08-28T12:00:00+02:00",
   previewExpiredAt: "2026-08-30T00:00:01+02:00",
   startsAt: "2026-08-24T00:00:00+02:00",

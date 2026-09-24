@@ -198,8 +198,10 @@ function initEventCampaign() {
   const eventLinks = document.querySelectorAll('[data-event-link]');
   if (!section) return;
 
+  const searchParams = new URLSearchParams(window.location.search);
+  const archiveMode = searchParams.get('event-archive') === '1';
   const previewState = config?.previewEnabled
-    ? new URLSearchParams(window.location.search).get('event-preview') || 'active'
+    ? searchParams.get('event-preview')
     : null;
   const previewTimestamp = previewState === 'active'
     ? Date.parse(config.previewActiveAt)
@@ -207,11 +209,12 @@ function initEventCampaign() {
       ? Date.parse(config.previewExpiredAt)
       : null;
   const now = Number.isFinite(previewTimestamp) ? previewTimestamp : Date.now();
-  const isLive = eventCampaignIsLive(config, now);
+  const isLive = archiveMode || eventCampaignIsLive(config, now);
   document.body.classList.toggle('event-mode', isLive);
   section.hidden = !isLive;
   eventLinks.forEach((link) => {
-    link.hidden = !isLive;
+    link.hidden = false;
+    link.href = isLive ? '#events' : 'events/';
   });
 
   if (!isLive) return;
@@ -240,8 +243,8 @@ function initEventCampaign() {
   setText('event-takeover-admission', config.admission);
 
   const takeover = config.takeover || {};
-  setSelectorText('.event-takeover-kicker', takeover.heroKicker);
-  setSelectorText('.header-context span', takeover.headerLabel);
+  setSelectorText('.event-takeover-kicker', archiveMode ? 'Past event · 29 August 2026' : takeover.heroKicker);
+  setSelectorText('.header-context span', archiveMode ? 'Spring Market archive · Pacific Business Park' : takeover.headerLabel);
   setSelectorText('.quick-dock [data-event-link] span', takeover.eventDockLabel);
   setSelectorText('.featured-stores-heading .eyebrow', takeover.featuredEyebrow);
   setSelectorText('#featured-stores-title', takeover.featuredTitle);
@@ -343,13 +346,13 @@ function initEventCampaign() {
   updateCountdown();
   window.setInterval(updateCountdown, 30000);
 
-  if (previewState && window.location.hash === '#events') {
+  if ((previewState || archiveMode) && window.location.hash === '#events') {
     document.body.classList.add('event-section-preview');
     window.setTimeout(() => section.scrollIntoView({ block: 'start' }), 80);
   }
 
   const previewSection = new URLSearchParams(window.location.search).get('preview-section');
-  if (previewState && previewSection) {
+  if ((previewState || archiveMode) && previewSection) {
     document.body.classList.add('preview-section-snapshot');
     document.body.classList.add(`preview-section-${previewSection}`);
     const target = document.getElementById(previewSection);

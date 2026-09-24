@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#151816">
+  <meta name="description" content="Explore the Pacific Roadhouse visual menu, a storefront inside Pacific Business Park. Preview menu and photography.">
+  <title>Pacific Roadhouse · Pacific Business Park</title>
+  <link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
+  <link rel="preload" href="./assets/03_burger.webp" as="image">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./menu.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#menu-panel">Skip to the menu</a>
+  <header class="park-bar">
+    <a class="park-brand" href="../" aria-label="Back to Pacific Business Park"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M2 24V9L14 3l12 6v15M8 24V13l6-3 6 3v11M14 10v14M2 17l6-4m12 0 6 4"/></svg><span>PACIFIC <span>BUSINESS PARK</span></span></a>
+    <nav class="park-links" aria-label="Pacific Business Park"><a href="../"><span aria-hidden="true">↖</span> Back to the park</a><a href="../events/">What’s happening <span aria-hidden="true">↗</span></a></nav>
+    <span class="park-location">A PLACE TO COME TOGETHER.</span>
+  </header>
+
+  <main id="storefront">
+    <div class="storefront-heading">
+      <div class="identity"><span class="identity-small">PACIFIC</span><h1>ROADHOUSE<span class="brand-star" aria-hidden="true">✳</span></h1></div>
+      <p class="storefront-intro">Big appetite.<br><span>Good company.</span></p>
+      <div class="storefront-actions"><a href="#visit" class="text-link">Find us in the park <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 15 15 5M5 5h10v10"/></svg></a><button type="button" class="motion-toggle" aria-pressed="false" title="Reduce animation"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 6h4m-4 4h8m-8 4h12"/></svg><span>Motion on</span></button></div>
+    </div>
+
+    <div class="category-shell">
+      <span class="category-label">THE MENU <span aria-hidden="true">↘</span></span>
+      <div class="category-tabs" role="tablist" aria-label="Food categories">
+        <button id="tab-featured" type="button" role="tab" aria-selected="true" aria-controls="menu-panel" data-category="featured" tabindex="0">Featured</button>
+        <button id="tab-chicken" type="button" role="tab" aria-selected="false" aria-controls="menu-panel" data-category="chicken" tabindex="-1">Fried chicken</button>
+        <button id="tab-wraps" type="button" role="tab" aria-selected="false" aria-controls="menu-panel" data-category="wraps" tabindex="-1">Wraps</button>
+        <button id="tab-burgers" type="button" role="tab" aria-selected="false" aria-controls="menu-panel" data-category="burgers" tabindex="-1">Burgers</button>
+        <button id="tab-sandwiches" type="button" role="tab" aria-selected="false" aria-controls="menu-panel" data-category="sandwiches" tabindex="-1">Sandwiches</button>
+        <button id="tab-pizza" type="button" role="tab" aria-selected="false" aria-controls="menu-panel" data-category="pizza" tabindex="-1">Pizza</button>
+        <button id="tab-drinks" type="button" role="tab" aria-selected="false" aria-controls="menu-panel" data-category="drinks" tabindex="-1">Drinks</button>
+        <button id="tab-milkshakes" type="button" role="tab" aria-selected="false" aria-controls="menu-panel" data-category="milkshakes" tabindex="-1">Milkshakes</button>
+        <button id="tab-extras" type="button" role="tab" aria-selected="false" aria-controls="menu-panel" data-category="extras" tabindex="-1">Extras</button>
+      </div>
+      <button class="tab-next" type="button" aria-label="Show more food categories">→</button>
+    </div>
+
+    <div class="experience" data-scene="featured">
+      <section class="food-scene" aria-labelledby="scene-title">
+        <div class="scene-topline"><span class="scene-eyebrow">THE ROADHOUSE EDIT</span><span class="scene-index"><b>01</b> / 09</span></div>
+        <div class="scene-copy"><h2 id="scene-title">COME<br>HUNGRY.</h2><p class="scene-subtitle">Make a little room for a lot of flavour.</p></div>
+        <div class="image-stage"><img id="hero-image" src="./assets/03_burger.webp" alt="Illustrative burger photograph — menu preview" width="1672" height="941" fetchpriority="high"><div class="scene-shade"></div></div>
+        <div class="scene-footer"><span class="scene-category">Featured favourites</span><a href="#menu-panel" class="menu-jump">Explore the menu <span aria-hidden="true">↘</span></a></div>
+        <span class="photo-label">ILLUSTRATIVE PHOTOGRAPHY</span>
+      </section>
+
+      <section id="menu-panel" class="menu-panel" role="tabpanel" aria-labelledby="tab-featured" tabindex="0">
+        <div class="menu-heading"><span class="eyebrow">GOOD FOOD. YOUR WAY.</span><span class="menu-preview-badge">MENU PREVIEW</span></div>
+        <div class="menu-title-row"><h2 id="menu-title">The favourites.</h2><span class="item-count">04 PICKS</span></div>
+        <p class="menu-intro">A little of everything. Find your Roadhouse mood.</p>
+        <div class="size-control" hidden><span>Pizza size</span><div role="group" aria-label="Choose pizza size"><button type="button" data-size="medium" aria-pressed="true">Medium</button><button type="button" data-size="large" aria-pressed="false">Large</button></div></div>
+        <ul class="menu-items" id="menu-items">
+          <li><div class="menu-item-copy"><h3>Roadhouse Box</h3><p>2 pieces fried chicken, chips, slaw and house dip.</p></div><span class="price">R129</span></li>
+          <li><div class="menu-item-copy"><h3>Burger &amp; Shake</h3><p>Classic beef burger, regular chips and a small milkshake.</p></div><span class="price">R119</span></li>
+          <li><div class="menu-item-copy"><h3>Pizza &amp; Wings Combo</h3><p>Medium pizza, 6 sauced wings and 2 cold drinks.</p></div><span class="price">R189</span></li>
+          <li><div class="menu-item-copy"><h3>Wrap Meal</h3><p>Crispy chicken wrap, chips and a cold drink.</p></div><span class="price">R99</span></li>
+        </ul>
+        <div class="menu-note"><span aria-hidden="true">*</span><p>Preview menu. Names, descriptions, prices and photography are illustrative and will be replaced with the confirmed Roadhouse menu.</p></div>
+        <button class="full-menu-link" type="button" id="open-full-menu">See the full preview menu <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h14M11 4l6 6-6 6"/></svg></button>
+      </section>
+    </div>
+
+    <div class="storefront-strip"><p>YOUR NEXT GOOD FOOD STOP.</p><span>INSIDE PACIFIC BUSINESS PARK <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 3 10 7-10 7Z"/></svg></span></div>
+
+    <section id="visit" class="visit-section" aria-labelledby="visit-title">
+      <div class="visit-title"><span class="eyebrow">PART OF THE PARK</span><h2 id="visit-title">Come for a bite.<br>Stay for a while.</h2></div>
+      <div class="visit-info"><h3>Pacific Roadhouse</h3><p>A food destination inside Pacific Business Park. Explore the park and discover what’s happening around us.</p><a class="dark-link" href="../">Explore Pacific Business Park <span aria-hidden="true">↗</span></a></div>
+      <div class="visit-details"><div><span>FIND US</span><p>Inside Pacific Business Park<br><small>Storefront location details to be confirmed.</small></p></div><div><span>HOURS &amp; CONTACT</span><p>Details coming soon.<br><small>Ordering information will follow.</small></p></div></div>
+    </section>
+    <a class="events-banner" href="../events/"><span>THERE’S MORE IN THE PARK</span><strong>See what’s happening.</strong><span class="events-arrow" aria-hidden="true">↗</span></a>
+  </main>
+
+  <footer class="footer"><a href="../">PACIFIC BUSINESS PARK</a><span>PACIFIC ROADHOUSE · STOREFRONT PREVIEW</span><a href="#storefront">Back to the menu ↑</a></footer>
+
+  <dialog class="full-menu-dialog" aria-labelledby="full-menu-title"><div class="dialog-header"><div><span class="eyebrow">PACIFIC ROADHOUSE</span><h2 id="full-menu-title">The full preview menu.</h2></div><button type="button" id="close-full-menu" aria-label="Close full menu">×</button></div><p class="dialog-note">Illustrative menu and pricing. Confirmed offerings and ordering details are coming soon.</p><div id="full-menu-content"></div></dialog>
+  <div class="sr-only" id="category-status" role="status" aria-live="polite" aria-atomic="true"></div>
+  <noscript><p class="no-script">Enable JavaScript to explore all food categories. The featured preview menu is available above.</p></noscript>
+</body>
+</html>
