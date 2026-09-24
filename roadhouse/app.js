@@ -2,15 +2,15 @@
   'use strict';
 
   const scenes = {
-    featured: { title: 'The favourites.', intro: 'A little of everything. Find your Roadhouse mood.', label: 'Featured favourites', image: '03_burger.webp' },
-    chicken: { title: 'Golden. Crisp. Ready.', intro: 'Fried chicken favourites, from quick bites to a family box.', label: 'Fried chicken', image: '01_fried_chicken.webp' },
-    wraps: { title: 'Wrapped up right.', intro: 'Fresh fillings, bold sauces, and satisfying crunch.', label: 'Wraps', image: '02_wraps.webp' },
-    burgers: { title: 'Built for the bite.', intro: 'Roadhouse burgers stacked with classic flavour.', label: 'Burgers', image: '03_burger.webp' },
-    sandwiches: { title: 'Toasted. Loaded.', intro: 'Simple favourites made for an easy stop.', label: 'Sandwiches', image: '04_sandwiches.webp' },
-    pizza: { title: 'Made to share.', intro: 'Six familiar combinations in medium and large.', label: 'Pizza', image: '05_pizza.webp' },
-    drinks: { title: 'Keep it cold.', intro: 'Cold drinks to complete the stop.', label: 'Drinks', image: '06_drinks.webp' },
-    milkshakes: { title: 'Make it a shake.', intro: 'Creamy classics and one loaded favourite.', label: 'Milkshakes', image: '07_milkshakes.webp' },
-    extras: { title: 'One more thing.', intro: 'Sides, wings, sauces, and the finishing touches.', label: 'Extras', image: '08_other.webp' }
+    featured: { title: 'The favourites.', intro: 'A little of everything. Find your Roadhouse mood.', label: 'Featured favourites', image: '03_burger.webp', headline: 'Come hungry.', sceneCopy: 'Make a little room for a lot of flavour.' },
+    chicken: { title: 'Golden. Crisp. Ready.', intro: 'Fried chicken favourites, from quick bites to a family box.', label: 'Fried chicken', image: '01_fried_chicken.webp', headline: 'Bring the crunch.', sceneCopy: 'Golden pieces settle into a scene made for sharing.' },
+    wraps: { title: 'Wrapped up right.', intro: 'Fresh fillings, bold sauces, and satisfying crunch.', label: 'Wraps', image: '02_wraps.webp', headline: 'Roll with it.', sceneCopy: 'Fresh colour and a cut-section reveal.' },
+    burgers: { title: 'Built for the bite.', intro: 'Roadhouse burgers stacked with classic flavour.', label: 'Burgers', image: '03_burger.webp', headline: 'Stacked right.', sceneCopy: 'Big layers. One satisfying centrepiece.' },
+    sandwiches: { title: 'Toasted. Loaded.', intro: 'Simple favourites made for an easy stop.', label: 'Sandwiches', image: '04_sandwiches.webp', headline: 'Toast the moment.', sceneCopy: 'A familiar favourite slides into focus.' },
+    pizza: { title: 'Made to share.', intro: 'Six familiar combinations in medium and large.', label: 'Pizza', image: '05_pizza.webp', headline: 'Turn up hungry.', sceneCopy: 'The whole table starts with one good slice.' },
+    drinks: { title: 'Keep it cold.', intro: 'Cold drinks to complete the stop.', label: 'Drinks', image: '06_drinks.webp', headline: 'Cool it down.', sceneCopy: 'Cold colour and bright highlights move into view.' },
+    milkshakes: { title: 'Make it a shake.', intro: 'Creamy classics and one loaded favourite.', label: 'Milkshakes', image: '07_milkshakes.webp', headline: 'Sip slowly.', sceneCopy: 'Creamy depth with a little glass-shine.' },
+    extras: { title: 'One more thing.', intro: 'Sides, wings, sauces, and the finishing touches.', label: 'Extras', image: '08_other.webp', headline: 'Add the good stuff.', sceneCopy: 'The sides that finish the Roadhouse stop.' }
   };
 
   const menu = window.ROADHOUSE_MENU || {};
@@ -22,6 +22,10 @@
   const list = document.getElementById('menu-items');
   const count = document.querySelector('.item-count');
   const sceneLabel = document.querySelector('.scene-category');
+  const experience = document.querySelector('.experience');
+  const sceneTitle = document.getElementById('scene-title');
+  const sceneSubtitle = document.querySelector('.scene-subtitle');
+  const sceneIndex = document.querySelector('.scene-index b');
   const status = document.getElementById('category-status');
   const dialog = document.querySelector('.full-menu-dialog');
   const fullMenu = document.getElementById('full-menu-content');
@@ -53,10 +57,17 @@
     title.textContent = scene.title;
     intro.textContent = scene.intro;
     sceneLabel.textContent = scene.label;
+    experience.dataset.scene = category;
+    sceneTitle.textContent = scene.headline;
+    sceneSubtitle.textContent = scene.sceneCopy;
+    sceneIndex.textContent = String(tabs.findIndex(tab => tab.dataset.category === category) + 1).padStart(2, '0');
     count.textContent = `${String(items.length).padStart(2, '0')} PICKS`;
     list.innerHTML = items.map(itemMarkup).join('');
     hero.src = `./assets/${scene.image}`;
     hero.alt = `Illustrative ${scene.label.toLowerCase()} photograph — menu preview`;
+    hero.classList.remove('scene-enter');
+    void hero.offsetWidth;
+    hero.classList.add('scene-enter');
     const nextUrl = new URL(location.href);
     nextUrl.searchParams.set('category', category);
     history.replaceState(null, '', nextUrl);
@@ -94,5 +105,16 @@
   });
 
   const initial = new URLSearchParams(location.search).get('category');
+  const motionToggle = document.querySelector('.motion-toggle');
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) document.body.classList.add('motion-reduced');
+  motionToggle?.setAttribute('aria-pressed', String(reduceMotion));
+  if (motionToggle && reduceMotion) motionToggle.querySelector('span').textContent = 'Motion off';
+  motionToggle?.addEventListener('click', () => {
+    const reduced = document.body.classList.toggle('motion-reduced');
+    motionToggle.setAttribute('aria-pressed', String(reduced));
+    motionToggle.querySelector('span').textContent = reduced ? 'Motion off' : 'Motion on';
+    motionToggle.title = reduced ? 'Enable animation' : 'Reduce animation';
+  });
   setCategory(scenes[initial] ? initial : active, false);
 })();
