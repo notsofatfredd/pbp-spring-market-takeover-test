@@ -157,6 +157,15 @@
         imageStage.classList.remove('is-transitioning');
         experience.classList.remove('scene-changing');
         gsap.set(hero, { clearProps: 'transform,opacity,filter' });
+        if (!motionIsReduced()) {
+          gsap.to(sceneWord, {
+            xPercent: '-=1.2',
+            duration: 5,
+            ease: 'sine.inOut',
+            repeat: -1,
+            yoyo: true
+          });
+        }
         productTimeline = null;
       }
     });
@@ -199,6 +208,19 @@
     sceneIndex.textContent = String(tabs.findIndex(tab => tab.dataset.category === category) + 1).padStart(2, '0');
     count.textContent = `${String(items.length).padStart(2, '0')} PICKS`;
     list.innerHTML = items.map(itemMarkup).join('');
+    if (announce && previous !== category && gsap && !motionIsReduced()) {
+      gsap.fromTo(list.querySelectorAll('li'),
+        { y: 10, autoAlpha: 0 },
+        {
+          y: 0,
+          autoAlpha: 1,
+          duration: .34,
+          stagger: .035,
+          ease: 'power2.out',
+          clearProps: 'transform,opacity,visibility'
+        }
+      );
+    }
     const nextSource = `./assets/${scene.product}`;
     hero.alt = `Illustrative ${scene.label.toLowerCase()} product plate — menu preview`;
     if (announce && previous !== category) animateProduct(nextSource, category);

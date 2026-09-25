@@ -28,10 +28,11 @@ Upload the contents of the release folder directly into `public_html/`. Enable *
 
 ## Event campaign switch
 
-The reusable temporary-event section is controlled in `assets/event-config.js` and is dormant until a verified campaign is supplied.
+The event section is controlled in `assets/event-config.js`. `previewMode: true` may publish a visibly labelled design preview with no asserted date, schedule or event offer. A real campaign must use verified copy/artwork and a valid `startsAt`/`endsAt`/`eventAt` window; clear preview mode before a real campaign.
 
-- Keep `enabled` set to `false` when no current event is verified; this removes the section and every “What’s On” navigation link.
-- Set `startsAt` and `endsAt` to schedule when the section appears and disappears.
+- Keep `enabled` set to `false` when no event preview or current event is intended; this removes the section and every event navigation link.
+- Use `previewMode` only for a clearly identified illustrative preview; it intentionally bypasses schedule checks and never displays a countdown.
+- For a real campaign, set `previewMode` to `false` and use verified `startsAt`, `endsAt` and `eventAt` values to schedule when the section appears and disappears.
 - Replace the artwork, copy, links, and five theme colours for the next campaign.
 
 Past events remain in Git history and release tags, not as promoted public routes.

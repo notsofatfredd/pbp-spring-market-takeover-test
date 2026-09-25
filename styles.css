@@ -8375,6 +8375,80 @@ body.event-section-preview #events {
   min-height: 100svh;
 }
 
+body.event-mode .event-countdown {
+  display: grid;
+}
+
+.featured-stores-actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 20px;
+}
+
+.featured-stores-actions > a,
+.featured-stores-next {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 0 5px;
+  color: var(--ink);
+  border: 0;
+  border-bottom: 1px solid rgba(16, 23, 37, 0.35);
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.featured-stores-actions svg {
+  width: 16px;
+  height: 16px;
+}
+
+.featured-stores-actions > a:hover,
+.featured-stores-actions > a:focus-visible,
+.featured-stores-next:hover,
+.featured-stores-next:focus-visible {
+  color: var(--oxide-teal);
+  border-bottom-color: currentColor;
+}
+
+.directory-result-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 36px;
+}
+
+.directory-clear-filters {
+  min-height: 40px;
+  padding: 0 13px;
+  color: #1d1d1f;
+  border: 1px solid rgba(29, 29, 31, 0.2);
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.directory-clear-filters[hidden] {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .featured-stores-actions {
+    flex-wrap: wrap;
+    gap: 12px 20px;
+  }
+}
+
 body.event-mode .event-takeover-intro,
 body.event-mode .event-takeover-kicker {
   color: var(--event-ink);
@@ -8566,13 +8640,14 @@ body.preview-section-snapshot .site-footer {
 .roadhouse-feature {
   position: relative;
   grid-column: 1 / -1;
-  min-height: 620px;
+  min-height: 540px;
   overflow: hidden;
   isolation: isolate;
   color: #f3efe2;
   border-radius: 24px;
   background:
-    radial-gradient(circle at 69% 48%, rgba(126, 42, 73, 0.88), transparent 31%),
+    radial-gradient(circle at 72% 48%, rgba(10, 77, 191, 0.24), transparent 29%),
+    radial-gradient(circle at 63% 48%, rgba(126, 42, 73, 0.74), transparent 33%),
     radial-gradient(circle at 48% 52%, #4b172b 0, #2a0b16 48%, #13060c 100%);
   box-shadow: 0 28px 70px rgba(29, 29, 31, 0.16);
 }
@@ -8601,7 +8676,7 @@ body.preview-section-snapshot .site-footer {
   font-weight: 900;
   line-height: .78;
   letter-spacing: -.06em;
-  opacity: .055;
+  opacity: .035;
   pointer-events: none;
 }
 
@@ -8666,7 +8741,7 @@ body.preview-section-snapshot .site-footer {
 .roadhouse-feature-product {
   position: absolute;
   z-index: 2;
-  inset: 4% 0 0 37%;
+  inset: 4% 0 0 42%;
   pointer-events: none;
 }
 
@@ -8784,6 +8859,25 @@ body.roadhouse-open .quick-dock {
   opacity: 0;
   pointer-events: none;
   transform: translate(-50%, 18px);
+}
+
+@keyframes roadhouse-feature-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-.35deg); }
+  50% { transform: translate3d(0, -9px, 0) rotate(.35deg); }
+}
+
+.roadhouse-feature-product img {
+  animation: roadhouse-feature-drift 8s ease-in-out infinite;
+}
+
+.roadhouse-feature-eyebrow {
+  color: #b8d4ff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roadhouse-feature-product img {
+    animation: none;
+  }
 }
 
 @media (max-width: 800px) {

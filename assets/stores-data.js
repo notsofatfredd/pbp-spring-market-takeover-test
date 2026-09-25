@@ -381,7 +381,7 @@ const STORES = [
   {
     id: "pacific-roadhouse",
     name: "Pacific Roadhouse",
-    category: "Restaurant",
+    category: "Cafeteria",
     unit: "19",
     unitConfirmed: false,
     phone: "021 370 9914",
@@ -389,7 +389,7 @@ const STORES = [
     brandEyebrow: "The Pacific family table",
     asideTitle: "At the roadhouse",
     brandHighlights: ["Meals at the park", "Quick food stop", "Part of the Pacific family"],
-    description: "Pacific Business Park's own restaurant, part of the Pacific family.",
+    description: "Pacific Business Park's own cafeteria and only meal stop, part of the Pacific family.",
     featured: true,
   },
 ];

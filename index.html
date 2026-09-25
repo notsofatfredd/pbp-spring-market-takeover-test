@@ -75,11 +75,11 @@
       }
     </script>
 
-    <link rel="stylesheet" href="styles.css?v=20260924-7" />
-    <script src="assets/event-config.js"></script>
-    <script src="assets/stores-data.js"></script>
+    <link rel="stylesheet" href="styles.css?v=20260925-3" />
+    <script src="assets/event-config.js?v=20260925-3"></script>
+    <script src="assets/stores-data.js?v=20260925-3"></script>
     <script src="vendor/lucide.min.js" defer></script>
-    <script src="app.js?v=20260924-7" defer></script>
+    <script src="app.js?v=20260925-3" defer></script>
     <script src="storefront-integration.js" defer></script>
   </head>
   <body>
@@ -145,6 +145,10 @@
         <div class="hero-site-render" aria-hidden="true"></div>
         <canvas id="hero-canvas" aria-hidden="true"></canvas>
         <div class="texture-screen" aria-hidden="true"></div>
+        <picture class="event-takeover-artwork" aria-hidden="true">
+          <source id="event-takeover-artwork-mobile" media="(max-width: 700px)" />
+          <img id="event-takeover-artwork" alt="" width="1672" height="941" decoding="async" />
+        </picture>
         <div class="hero-shell">
           <div class="hero-grid">
             <div class="hero-copy hero-copy-default" data-reveal>
@@ -171,6 +175,29 @@
                 </a>
               </div>
             </div>
+            <div class="event-takeover" aria-labelledby="event-takeover-title">
+              <div class="event-takeover-brand">
+                <img src="images/pacific-business-park-logo-cutout.webp" alt="Pacific Business Park" width="1254" height="1254" />
+                <span id="event-takeover-venue">Pacific Business Park</span>
+              </div>
+          <p class="event-takeover-kicker">Illustrative preview · no event announced</p>
+              <h1 id="event-takeover-title"><span>Centre</span><span>event</span></h1>
+              <p class="event-takeover-intro" id="event-takeover-description">Event details will appear here when a verified campaign is scheduled.</p>
+              <div class="event-takeover-facts">
+                <span><i data-lucide="calendar-days"></i><strong id="event-takeover-date">Date to be announced</strong></span>
+                <span><i data-lucide="clock-3"></i><strong id="event-takeover-time">Time to be announced</strong></span>
+                <span><i data-lucide="ticket-check"></i><strong id="event-takeover-admission">Details to be announced</strong></span>
+              </div>
+              <div class="event-countdown" aria-live="polite">
+                <span class="event-countdown-label">Event starts in</span>
+                <strong id="event-countdown">--</strong>
+                <small>Campaign schedule</small>
+              </div>
+              <div class="event-takeover-actions">
+                <a class="button event-primary-action" href="#events"><span>See event details</span><i data-lucide="arrow-down-right"></i></a>
+                <a class="button event-secondary-action" id="event-takeover-directions" href="https://www.google.com/maps/search/?api=1&amp;query=1E+Jakes+Gerwel+Drive,+Cape+Town" target="_blank" rel="noopener noreferrer"><i data-lucide="map-pin"></i><span>Get directions</span></a>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -182,12 +209,12 @@
 
       <section class="ticker-band" aria-label="Fast moving highlights">
         <div class="ticker-track">
-          <span>23 stores trading</span><b></b>
+          <span>23 store listings</span><b></b>
           <span>25 retail units</span><b></b>
           <span>Food, grocery, beauty, home, services</span><b></b>
           <span>Roadhouse menu preview</span><b></b>
           <span>1E Jakes Gerwel Drive</span><b></b>
-          <span aria-hidden="true">23 stores trading</span><b aria-hidden="true"></b>
+          <span aria-hidden="true">23 store listings</span><b aria-hidden="true"></b>
           <span aria-hidden="true">25 retail units</span><b aria-hidden="true"></b>
           <span aria-hidden="true">Food, grocery, beauty, home, services</span><b aria-hidden="true"></b>
           <span aria-hidden="true">Roadhouse menu preview</span><b aria-hidden="true"></b>
@@ -202,15 +229,21 @@
               <p class="eyebrow">Featured at the park</p>
               <h2 id="featured-stores-title">A few places worth a closer look.</h2>
             </div>
-            <a href="#directory-drawer" data-open-directory>
-              <span>View the full directory</span>
-              <i data-lucide="arrow-up-right"></i>
-            </a>
+            <div class="featured-stores-actions">
+              <button class="featured-stores-next" id="featured-stores-next" type="button" aria-controls="featured-stores-grid">
+                <span>More featured stores</span>
+                <i data-lucide="arrow-right"></i>
+              </button>
+              <a href="#directory-drawer" data-open-directory>
+                <span>View the full directory</span>
+                <i data-lucide="arrow-up-right"></i>
+              </a>
+            </div>
           </div>
           <div
             class="featured-stores-grid"
             id="featured-stores-grid"
-            aria-label="Rotating featured stores"
+            aria-label="Featured stores"
           ></div>
         </div>
       </section>
@@ -226,7 +259,7 @@
           </div>
 
           <div class="utility-strip" data-reveal>
-            <aside class="counter-board" aria-label="Live centre board">
+            <aside class="counter-board" aria-label="Centre directory highlights">
               <div class="board-header">
                 <span>Centre directory</span>
                 <strong id="calling-number">PBP</strong>
@@ -234,21 +267,21 @@
               <div class="order-row">
                 <span>Unit 24</span>
                 <strong>The Gadget Shop</strong>
-                <em>Open</em>
+                <em>In directory</em>
               </div>
               <div class="order-row muted">
                 <span>Unit 6</span>
                 <strong>MilkUp Ice Creamery</strong>
-                <em>Open</em>
+                <em>In directory</em>
               </div>
               <div class="order-row muted">
-                <span>Unit 19</span>
+                <span>Location TBC</span>
                 <strong>Pacific Roadhouse</strong>
-                <em>Open</em>
+                <em>In directory</em>
               </div>
               <div class="board-footer">
                 <span id="live-clock">--:--</span>
-                <span>Directory live</span>
+                <span>Listings · local time</span>
               </div>
             </aside>
 
@@ -272,9 +305,9 @@
           <article class="roadhouse-feature" aria-labelledby="roadhouse-feature-title">
             <div class="roadhouse-feature-word" aria-hidden="true">ROADHOUSE</div>
             <div class="roadhouse-feature-copy">
-              <p class="roadhouse-feature-eyebrow">A food stop inside the park</p>
+              <p class="roadhouse-feature-eyebrow">Pacific Business Park · cafeteria</p>
               <h3 id="roadhouse-feature-title">Pacific<br />Roadhouse</h3>
-              <p>Open the counter, choose a craving, and explore the animated menu while staying inside Pacific Business Park.</p>
+              <p>The park’s only place to get a meal. Step into its cafeteria counter and explore one of the Pacific family’s own food spots.</p>
               <button class="button roadhouse-preview-toggle" type="button" data-open-roadhouse aria-controls="roadhouse-preview" aria-expanded="false">
                 <span>Step inside Roadhouse</span>
                 <i data-lucide="arrow-down-right"></i>
@@ -508,7 +541,10 @@
           <div class="alpha-filter" id="alpha-filter" role="group" aria-label="Filter by first letter"></div>
         </div>
 
-        <p class="directory-results" id="directory-results">Loading stores.</p>
+        <div class="directory-result-tools">
+          <p class="directory-results" id="directory-results" role="status" aria-live="polite" aria-atomic="true">Loading stores.</p>
+          <button class="directory-clear-filters" id="clear-directory-filters" type="button" hidden>Clear filters</button>
+        </div>
         <div class="directory-grid" id="directory-grid"></div>
       </div>
     </section>

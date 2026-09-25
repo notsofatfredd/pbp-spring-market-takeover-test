@@ -48,3 +48,9 @@ html.embed-mode .menu-panel{top:250px}
 html.embed-mode .scene-word{top:24%}
 html.embed-mode .scene-copy{top:45%}
 @media(max-width:800px){html.embed-mode .roadhouse-stage{min-height:0}html.embed-mode .category-shell{top:auto}html.embed-mode .scene-topline{top:22px}html.embed-mode .scene-word{top:31%}html.embed-mode .scene-copy{top:102px}html.embed-mode .menu-panel{top:auto;margin-bottom:0}}
+
+@keyframes roadhouse-scene-breathe{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-6px,0)}}
+.image-stage:not(.is-transitioning){animation:roadhouse-scene-breathe 8s ease-in-out infinite}
+.image-stage.is-transitioning{animation:none}
+@media(prefers-reduced-motion:reduce){.image-stage{animation:none!important}}
+body.motion-reduced .image-stage{animation:none!important}

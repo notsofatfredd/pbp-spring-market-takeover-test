@@ -152,11 +152,18 @@ function initMarketplace() {
 function eventCampaignIsLive(config, now = Date.now()) {
   if (!config?.enabled) return false;
 
-  const startsAt = config.startsAt ? Date.parse(config.startsAt) : null;
-  const endsAt = config.endsAt ? Date.parse(config.endsAt) : null;
-  const hasStarted = startsAt === null || (!Number.isNaN(startsAt) && now >= startsAt);
-  const hasNotEnded = endsAt === null || (!Number.isNaN(endsAt) && now < endsAt);
-  return hasStarted && hasNotEnded;
+  const startsAt = Date.parse(config.startsAt || '');
+  const endsAt = Date.parse(config.endsAt || '');
+  const eventAt = Date.parse(config.eventAt || '');
+  const requiredCopy = ['title', 'venue', 'description', 'date', 'time', 'admission', 'artwork'];
+  const hasRequiredCopy = requiredCopy.every((key) => typeof config[key] === 'string' && config[key].trim().length > 0);
+    const hasValidSchedule = [startsAt, endsAt, eventAt].every(Number.isFinite)
+      && startsAt < endsAt
+      && eventAt >= startsAt
+      && eventAt < endsAt;
+
+    const isScheduledCampaign = hasValidSchedule && now >= startsAt && now < endsAt;
+    return hasRequiredCopy && (config.previewMode === true || isScheduledCampaign);
 }
 
 function initEventCampaign() {
@@ -201,6 +208,7 @@ function initEventCampaign() {
 
   const takeover = config.takeover || {};
   setSelectorText('.event-takeover-kicker', takeover.heroKicker);
+  setSelectorText('.event-primary-action span', takeover.heroCtaLabel || 'See event details');
   setSelectorText('.header-context span', takeover.headerLabel);
   setSelectorText('.quick-dock [data-event-link] span', takeover.eventDockLabel);
   setSelectorText('.featured-stores-heading .eyebrow', takeover.featuredEyebrow);
@@ -283,8 +291,15 @@ function initEventCampaign() {
   });
 
   const countdown = document.getElementById('event-countdown');
+  if (config.previewMode === true) {
+    const countdownLabel = document.querySelector('.event-countdown-label');
+    const countdownNote = countdown?.parentElement?.querySelector('small');
+    if (countdownLabel) countdownLabel.textContent = 'Event schedule';
+    if (countdown) countdown.textContent = 'Preview only';
+    if (countdownNote) countdownNote.textContent = 'No event has been announced';
+  }
   const updateCountdown = () => {
-    if (!countdown) return;
+    if (!countdown || config.previewMode === true) return;
     const eventTime = Date.parse(config.eventAt || config.startsAt);
     const remaining = Math.max(0, eventTime - Date.now());
     if (remaining === 0) {
@@ -299,7 +314,7 @@ function initEventCampaign() {
       : `${hours}h ${String(minutes).padStart(2, '0')}m`;
   };
   updateCountdown();
-  window.setInterval(updateCountdown, 30000);
+  if (config.previewMode !== true) window.setInterval(updateCountdown, 30000);
 
   const boundaries = [config.startsAt, config.endsAt]
     .map((value) => Date.parse(value))
@@ -462,7 +477,6 @@ function createLogo(store, className) {
 
 const featuredStoreStorageKey = 'pbp-featured-stores-v1';
 const featuredStoreCount = 3;
-const featuredStoreInterval = 9000;
 
 function localDateKey(date = new Date()) {
   const pad = (value) => String(value).padStart(2, '0');
@@ -523,6 +537,7 @@ function writeFeaturedState(state) {
 
 function initFeaturedStores() {
   const grid = document.getElementById('featured-stores-grid');
+  const nextButton = document.getElementById('featured-stores-next');
   const eligibleStores = storeDirectory.filter((store) => store.logo);
   if (!grid || eligibleStores.length === 0) return;
 
@@ -530,7 +545,6 @@ function initFeaturedStores() {
   let activeDay = '';
   let orderedStores = [];
   let cursor = 0;
-  let paused = false;
 
   function prepareDay(day) {
     const stored = readFeaturedState();
@@ -595,23 +609,8 @@ function initFeaturedStores() {
     });
   }
 
-  grid.addEventListener('pointerenter', () => {
-    paused = true;
-  });
-  grid.addEventListener('pointerleave', () => {
-    paused = false;
-  });
-  grid.addEventListener('focusin', () => {
-    paused = true;
-  });
-  grid.addEventListener('focusout', (event) => {
-    if (!grid.contains(event.relatedTarget)) paused = false;
-  });
-
   showNextGroup();
-  window.setInterval(() => {
-    if (!paused && !document.hidden) showNextGroup();
-  }, featuredStoreInterval);
+  nextButton?.addEventListener('click', showNextGroup);
 }
 
 function createActionLink(label, href, iconName) {
@@ -739,7 +738,7 @@ function openStoreDialog(storeId, trigger = null) {
   if (store.phone) metaParts.push(store.phone);
   if (store.website) metaParts.push(store.website);
   meta.textContent = metaParts.join(' | ');
-  hours.textContent = store.hours || 'Centre trading hours: Mon-Sat 09:00-18:00 | Sun 09:00-13:00';
+  hours.textContent = store.hours || 'Store hours have not been confirmed. Please check with the store before visiting.';
   description.textContent = store.description;
   renderStoreDialogAside(palette, store);
 
@@ -825,7 +824,8 @@ function renderDirectoryCards() {
 
       const button = document.createElement('button');
       button.type = 'button';
-      button.innerHTML = '<span>View store</span><i data-lucide="arrow-up-right"></i>';
+      button.innerHTML = '<span></span><i data-lucide="arrow-up-right"></i>';
+      button.querySelector('span').textContent = `View ${store.name} details`;
       button.addEventListener('click', () => openStoreDialog(store.id, button));
 
       card.append(createLogo(store, 'store-logo'), title, meta, copy, button);
@@ -842,13 +842,19 @@ function initDirectory() {
   const tabs = document.getElementById('category-tabs');
   const alpha = document.getElementById('alpha-filter');
   const results = document.getElementById('directory-results');
+  const clearFilters = document.getElementById('clear-directory-filters');
   if (!drawer || !panel || !search || !tabs || !alpha || !results) return;
 
   let activeCategory = 'all';
   let activeLetter = 'all';
   const cards = renderDirectoryCards();
   const categories = [...new Set(storeDirectory.map((store) => store.category))].sort();
-  const letters = ['all', ...'abcdefghijklmnopqrstuvwxyz'.split('')];
+  const availableLetters = [...new Set(storeDirectory.map((store) => store.name.trim().charAt(0).toLowerCase()))].filter((letter) => letter !== 'all');
+  const letters = ['all', ...availableLetters].sort((a, b) => {
+    if (a === 'all') return -1;
+    if (b === 'all') return 1;
+    return a.localeCompare(b);
+  });
 
   tabs.append(...['all', ...categories].map((category) => {
     const button = document.createElement('button');
@@ -856,6 +862,7 @@ function initDirectory() {
     button.className = 'directory-tab';
     button.dataset.category = category;
     button.textContent = category === 'all' ? 'All' : category;
+    button.setAttribute('aria-pressed', String(category === 'all'));
     if (category === 'all') button.classList.add('active');
     return button;
   }));
@@ -866,6 +873,7 @@ function initDirectory() {
     button.className = 'alpha-btn';
     button.dataset.letter = letter;
     button.textContent = letter === 'all' ? 'All' : letter.toUpperCase();
+    button.setAttribute('aria-pressed', String(letter === 'all'));
     if (letter === 'all') button.classList.add('active');
     return button;
   }));
@@ -884,13 +892,20 @@ function initDirectory() {
       if (show) visible += 1;
     });
 
-    results.textContent = `Showing ${visible} of ${cards.length} stores.`;
+    results.textContent = visible === 0
+      ? 'No stores match these filters.'
+      : `Showing ${visible} of ${cards.length} stores.`;
+    if (clearFilters) clearFilters.hidden = !search.value.trim() && activeCategory === 'all' && activeLetter === 'all';
   }
 
   function openDirectory(trigger) {
     lastDirectoryTrigger = trigger || document.activeElement;
     drawer.hidden = false;
     drawer.setAttribute('aria-hidden', 'false');
+    Array.from(document.body.children).filter((child) => child !== drawer).forEach((child) => {
+      child.dataset.directoryWasInert = String(child.inert);
+      child.inert = true;
+    });
     document.body.classList.add('directory-open');
     window.requestAnimationFrame(() => search.focus());
     applyFilters();
@@ -899,6 +914,12 @@ function initDirectory() {
   function closeDirectory() {
     drawer.hidden = true;
     drawer.setAttribute('aria-hidden', 'true');
+    Array.from(document.body.children).filter((child) => child !== drawer).forEach((child) => {
+      if (child.dataset.directoryWasInert !== undefined) {
+        child.inert = child.dataset.directoryWasInert === 'true';
+        delete child.dataset.directoryWasInert;
+      }
+    });
     document.body.classList.remove('directory-open');
     if (lastDirectoryTrigger?.focus) lastDirectoryTrigger.focus();
   }
@@ -918,7 +939,11 @@ function initDirectory() {
     const button = event.target.closest('.directory-tab');
     if (!button) return;
     activeCategory = button.dataset.category;
-    tabs.querySelectorAll('.directory-tab').forEach((item) => item.classList.toggle('active', item === button));
+    tabs.querySelectorAll('.directory-tab').forEach((item) => {
+      const selected = item === button;
+      item.classList.toggle('active', selected);
+      item.setAttribute('aria-pressed', String(selected));
+    });
     applyFilters();
   });
 
@@ -926,13 +951,56 @@ function initDirectory() {
     const button = event.target.closest('.alpha-btn');
     if (!button) return;
     activeLetter = button.dataset.letter;
-    alpha.querySelectorAll('.alpha-btn').forEach((item) => item.classList.toggle('active', item === button));
+    alpha.querySelectorAll('.alpha-btn').forEach((item) => {
+      const selected = item === button;
+      item.classList.toggle('active', selected);
+      item.setAttribute('aria-pressed', String(selected));
+    });
     applyFilters();
+  });
+
+  clearFilters?.addEventListener('click', () => {
+    search.value = '';
+    activeCategory = 'all';
+    activeLetter = 'all';
+    tabs.querySelectorAll('.directory-tab').forEach((item) => {
+      const selected = item.dataset.category === 'all';
+      item.classList.toggle('active', selected);
+      item.setAttribute('aria-pressed', String(selected));
+    });
+    alpha.querySelectorAll('.alpha-btn').forEach((item) => {
+      const selected = item.dataset.letter === 'all';
+      item.classList.toggle('active', selected);
+      item.setAttribute('aria-pressed', String(selected));
+    });
+    applyFilters();
+    search.focus();
   });
 
   search.addEventListener('input', applyFilters);
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && !drawer.hidden) closeDirectory();
+    if (drawer.hidden) return;
+    if (event.key === 'Escape') {
+      closeDirectory();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...panel.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+      .filter((element) => !element.hidden && element.getClientRects().length > 0);
+    if (focusable.length === 0) {
+      event.preventDefault();
+      panel.focus();
+      return;
+    }
+    const first = focusable[0];
+    const last = focusable.at(-1);
+    if (event.shiftKey && (document.activeElement === first || document.activeElement === panel)) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
   });
 
   if (window.location.hash === '#directory-drawer') openDirectory();
@@ -947,14 +1015,22 @@ function initRoadhousePreview() {
   const heading = document.getElementById('roadhouse-preview-title');
   const triggers = Array.from(document.querySelectorAll('[data-open-roadhouse]'));
   const close = panel?.querySelector('[data-close-roadhouse]');
+  const quickDock = document.querySelector('.quick-dock');
   if (!panel || !frame || !triggers.length) return;
 
   let hideTimer;
+  let previewHistoryEntry = false;
   let lastTrigger = triggers.at(-1);
 
   function setOpen(open, { moveFocus = true, updateHash = true } = {}) {
     window.clearTimeout(hideTimer);
+    const wasOpen = document.body.classList.contains('roadhouse-open');
     document.body.classList.toggle('roadhouse-open', open);
+    if (quickDock) {
+      quickDock.inert = open;
+      if (open) quickDock.setAttribute('aria-hidden', 'true');
+      else quickDock.removeAttribute('aria-hidden');
+    }
     feature?.classList.toggle('is-previewing', open);
     triggers.forEach((trigger) => trigger.setAttribute('aria-expanded', String(open)));
 
@@ -962,7 +1038,10 @@ function initRoadhousePreview() {
       panel.hidden = false;
       if (!frame.hasAttribute('src')) frame.src = frame.dataset.src;
       window.requestAnimationFrame(() => panel.classList.add('is-open'));
-      if (updateHash) history.replaceState(null, '', '#roadhouse-preview');
+      if (updateHash && !wasOpen) {
+        history.pushState({ roadhousePreview: true }, '', '#roadhouse-preview');
+        previewHistoryEntry = true;
+      }
       window.setTimeout(() => {
         if (moveFocus) heading?.focus({ preventScroll: true });
         panel.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
@@ -971,7 +1050,14 @@ function initRoadhousePreview() {
     }
 
     panel.classList.remove('is-open');
-    if (updateHash && window.location.hash === '#roadhouse-preview') history.replaceState(null, '', '#today');
+    if (updateHash && window.location.hash === '#roadhouse-preview') {
+      if (previewHistoryEntry) {
+        previewHistoryEntry = false;
+        history.back();
+      } else {
+        history.replaceState(null, '', '#today');
+      }
+    }
     hideTimer = window.setTimeout(() => {
       panel.hidden = true;
     }, 240);
@@ -986,6 +1072,12 @@ function initRoadhousePreview() {
   close?.addEventListener('click', () => setOpen(false));
   panel.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') setOpen(false);
+  });
+
+  window.addEventListener('popstate', () => {
+    if (window.location.hash === '#roadhouse-preview' || !document.body.classList.contains('roadhouse-open')) return;
+    previewHistoryEntry = false;
+    setOpen(false, { moveFocus: false, updateHash: false });
   });
 
   window.addEventListener('message', (event) => {
